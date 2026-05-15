@@ -18,7 +18,7 @@
 - ✅ 实现 sitemap.ts + robots.ts（force-static 模式适配 output: export）
 - ✅ 实现首页矩阵展示 + 转换器双面板 UI
 
-### 实现的 Adapter（14 个 json→X）
+### 实现的 Adapter（17 个 Live）
 
 全部真实可用，浏览器端运行：
 
@@ -38,6 +38,9 @@ json → joi                  ✅ Live
 json → python-dataclass     ✅ Live
 json → php                  ✅ Live
 json → ruby                 ✅ Live
+json-schema → typescript    ✅ Live
+json-schema → zod           ✅ Live
+json-schema → pydantic      ✅ Live
 ```
 
 ### 部署
@@ -54,7 +57,12 @@ json → ruby                 ✅ Live
 
 - ✅ Google Search Console 添加资源：`https://www.schemato.top`
 - ✅ HTML meta 标签验证通过：`google-site-verification: E5Y2XW51q7GwmHWk7XP_P9Z3pTFrZ7sNmG_N1kL000M`
-- ⏳ Sitemap 待提交：`https://www.schemato.top/sitemap.xml`
+- ✅ Sitemap 已提交：`https://www.schemato.top/sitemap.xml`
+- ✅ 已手动请求索引 5 个核心页面（首页 + json-to-zod / typescript / go-struct / rust-struct）
+
+### GitHub 仓库可见性
+
+- ✅ 仓库已改为 **public**（解锁 r/typescript / r/golang / r/rust 推广路径）
 
 ### 推广（踩坑记录）
 

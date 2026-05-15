@@ -18,6 +18,9 @@ import { jsonToJoi } from "./json-to-joi";
 import { jsonToPythonDataclass } from "./json-to-python-dataclass";
 import { jsonToPhp } from "./json-to-php";
 import { jsonToRuby } from "./json-to-ruby";
+import { jsonschemaToTypeScript } from "./jsonschema-to-typescript";
+import { jsonschemaToZod } from "./jsonschema-to-zod";
+import { jsonschemaToPydantic } from "./jsonschema-to-pydantic";
 
 export interface ConvertResult {
   ok: boolean;
@@ -63,3 +66,8 @@ register("json", "joi", jsonToJoi);
 register("json", "python-dataclass", jsonToPythonDataclass);
 register("json", "php", jsonToPhp);
 register("json", "ruby", jsonToRuby);
+
+// json-schema → X
+register("json-schema", "typescript", jsonschemaToTypeScript);
+register("json-schema", "zod", jsonschemaToZod);
+register("json-schema", "pydantic", jsonschemaToPydantic);
