@@ -18,23 +18,22 @@
 - ✅ 实现 sitemap.ts + robots.ts（force-static 模式适配 output: export）
 - ✅ 实现首页矩阵展示 + 转换器双面板 UI
 
-### 实现的 Adapter（60 个 Live · 占 40%）
+### 实现的 Adapter（104 个 Live · 占 ~70%）
 
 架构升级：把 15 个语言渲染器集中到 `lib/converters/renderers.ts`，再写一个 `bridge(parser, target)` 桥接函数。任何新输入格式只要写一个 `xxxToShape(input)` 解析器，就能自动获得全部 15 个输出。
 
-**JSON 输入** （15/15 ✅）
-
-```
-json → typescript / zod / pydantic / python-dataclass
-     → go-struct / rust-struct / swift / kotlin / java / csharp / dart
-     → yup / joi / php / ruby
-```
-
-**JSON Schema 输入**（15/15 ✅，通过 bridge 自动获得）
-
-**GraphQL SDL 输入**（15/15 ✅，通过 bridge 自动获得）
-
-**SQL DDL 输入**（15/15 ✅，覆盖 Postgres / MySQL / SQLite 公共子集，通过 bridge 自动获得）
+| 输入格式 | Live 输出数 | 说明 |
+|---|---|---|
+| JSON | 15/15 ✅ | 14 个独立 adapter + 1 个统一架构 |
+| JSON Schema | 15/15 ✅ | bridge 自动获得 |
+| GraphQL SDL | 15/15 ✅ | bridge 自动获得 |
+| SQL DDL | 15/15 ✅ | Postgres / MySQL / SQLite 公共子集 |
+| TypeScript（反向） | 14/15 ✅ | 跳过 typescript→typescript 自身 |
+| Protobuf | 15/15 ✅ | 解析 message 块 |
+| Prisma schema | 15/15 ✅ | 解析 model 块 |
+| Avro | 0/15 | 待加 |
+| Mongoose | 0/15 | 待加 |
+| OpenAPI | 0/15 | 待加 |
 
 ### 文档完善
 

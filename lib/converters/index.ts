@@ -22,6 +22,9 @@ import { jsonToRuby } from "./json-to-ruby";
 import { jsonSchemaToShape } from "./jsonschema-shape";
 import { graphqlToShape } from "./graphql-shape";
 import { sqlToShape } from "./sql-shape";
+import { typescriptToShape } from "./typescript-shape";
+import { protobufToShape } from "./protobuf-shape";
+import { prismaToShape } from "./prisma-shape";
 import { RENDERERS } from "./renderers";
 
 export interface ConvertResult {
@@ -112,4 +115,20 @@ for (const t of ALL_TARGETS) {
 // SQL DDL → 全部 15 个输出
 for (const t of ALL_TARGETS) {
   register("sql", t, bridge(sqlToShape, t));
+}
+
+// TypeScript（反向）→ 全部 15 个输出（除了 typescript→typescript 自身）
+for (const t of ALL_TARGETS) {
+  if (t === "typescript") continue;
+  register("typescript", t, bridge(typescriptToShape, t));
+}
+
+// Protobuf → 全部 15 个输出
+for (const t of ALL_TARGETS) {
+  register("protobuf", t, bridge(protobufToShape, t));
+}
+
+// Prisma schema → 全部 15 个输出
+for (const t of ALL_TARGETS) {
+  register("prisma", t, bridge(prismaToShape, t));
 }
