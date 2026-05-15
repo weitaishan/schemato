@@ -21,6 +21,7 @@ import { jsonToRuby } from "./json-to-ruby";
 
 import { jsonSchemaToShape } from "./jsonschema-shape";
 import { graphqlToShape } from "./graphql-shape";
+import { sqlToShape } from "./sql-shape";
 import { RENDERERS } from "./renderers";
 
 export interface ConvertResult {

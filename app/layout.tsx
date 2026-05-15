@@ -64,15 +64,16 @@ export const metadata: Metadata = {
 
 const orgJsonLd = {
   "@context": "https://schema.org",
-  "@type": "WebApplication",
+  "@type": "WebSite",
   name: SITE.name,
-  applicationCategory: "DeveloperApplication",
-  operatingSystem: "Any",
   url: SITE.url,
   description: SITE.description,
-  offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-  isAccessibleForFree: true,
   inLanguage: "en",
+  publisher: {
+    "@type": "Organization",
+    name: SITE.name,
+    url: SITE.url,
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

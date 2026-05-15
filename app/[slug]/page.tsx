@@ -88,17 +88,22 @@ export default async function ConverterPage({ params }: RouteParams) {
   ].slice(0, 8);
 
   // ---- JSON-LD ----
-  const softwareLd = {
+  // 用 HowTo 取代 SoftwareApplication：HowTo 不要求 aggregateRating，
+  // 且每个转换页本身就是"如何把 X 转成 Y"，语义匹配更自然。
+  const howToLd = {
     "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    name: `${from.name} to ${to.name} Converter`,
-    applicationCategory: "DeveloperApplication",
-    operatingSystem: "Any (browser)",
-    url,
+    "@type": "HowTo",
+    name: `How to convert ${from.name} to ${to.name}`,
     description: seo.description,
-    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-    isAccessibleForFree: true,
+    totalTime: "PT1M",
     inLanguage: "en",
+    tool: [{ "@type": "HowToTool", name: `${SITE.name} ${from.name} to ${to.name} converter` }],
+    step: seo.howSteps.map((s, i) => ({
+      "@type": "HowToStep",
+      position: i + 1,
+      name: `Step ${i + 1}`,
+      text: s,
+    })),
   };
 
   const faqLd = {
@@ -126,7 +131,7 @@ export default async function ConverterPage({ params }: RouteParams) {
       {/* JSON-LD 结构化数据 */}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToLd) }}
       />
       <script
         type="application/ld+json"
