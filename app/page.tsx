@@ -7,22 +7,34 @@ import {
 import { hasConverter } from "@/lib/converters";
 import { pathFor } from "@/lib/url";
 import { SITE } from "@/lib/site";
+import MatrixSearch from "@/components/MatrixSearch";
 
 export default function HomePage() {
   const all = allConversions();
-  const live = all.filter((c) => hasConverter(c.from, c.to));
+  const liveCount = all.filter((c) => hasConverter(c.from, c.to)).length;
+
+  const entries = all.map((c) => ({
+    from: c.from,
+    to: c.to,
+    fromName: FORMATS[c.from].name,
+    toName: FORMATS[c.to].name,
+    href: pathFor(c.from, c.to),
+    live: hasConverter(c.from, c.to),
+  }));
 
   return (
     <div className="container-x py-16">
       <section className="max-w-3xl">
-        <span className="pill mb-4">Free · Browser-only · {all.length} converters</span>
+        <span className="pill mb-4">
+          Free · Browser-only · {liveCount} of {all.length} converters live
+        </span>
         <h1 className="text-4xl md:text-5xl font-bold tracking-tight leading-tight">
           Convert any schema to <span className="text-accent">any</span> code.
         </h1>
         <p className="text-dim mt-4 text-lg leading-relaxed">
-          Paste a JSON, OpenAPI, GraphQL, SQL DDL, or Protobuf sample. Get
-          TypeScript, Zod, Pydantic, Go, Rust, Swift, Kotlin, and more —
-          generated in your browser.
+          Paste a JSON, JSON Schema, OpenAPI, GraphQL SDL, SQL DDL, Protobuf,
+          Prisma or TypeScript sample. Get TypeScript, Zod, Pydantic, Go, Rust,
+          Swift, Kotlin, and more — generated entirely in your browser.
         </p>
         <div className="mt-6 flex gap-3">
           <a href="/json-to-zod" className="btn-primary">
@@ -42,48 +54,9 @@ export default function HomePage() {
               {INPUT_FORMATS.length} inputs × {OUTPUT_FORMATS.length} outputs
             </h2>
           </div>
-          <p className="text-mute text-sm hidden md:block">
-            Live: {live.length} / {all.length} pairs · more coming
-          </p>
         </div>
 
-        <div className="space-y-10">
-          {INPUT_FORMATS.map((fromId) => {
-            const from = FORMATS[fromId];
-            return (
-              <div key={fromId}>
-                <h3 className="text-sm uppercase tracking-widest text-dim mb-3">
-                  From {from.name}
-                </h3>
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2">
-                  {OUTPUT_FORMATS.filter((t) => t !== fromId).map((toId) => {
-                    const to = FORMATS[toId];
-                    const live = hasConverter(fromId, toId);
-                    return (
-                      <a
-                        key={toId}
-                        href={pathFor(fromId, toId)}
-                        className="card px-3 py-3 hover:border-accent transition flex items-center justify-between gap-2"
-                      >
-                        <div className="min-w-0">
-                          <div className="text-sm font-medium truncate">
-                            {from.name} → {to.name}
-                          </div>
-                          <div className="text-xs text-mute truncate">
-                            {live ? "Live" : "Preview"}
-                          </div>
-                        </div>
-                        {live && (
-                          <span className="h-2 w-2 rounded-full bg-accent2 shrink-0" />
-                        )}
-                      </a>
-                    );
-                  })}
-                </div>
-              </div>
-            );
-          })}
-        </div>
+        <MatrixSearch entries={entries} />
       </section>
 
       <section className="mt-20 max-w-3xl">
@@ -92,7 +65,10 @@ export default function HomePage() {
           <li>• 100% client-side. Your schema never leaves your browser.</li>
           <li>• Zero signup, zero ads in the conversion area.</li>
           <li>• One source of truth — copy generated types straight into your repo.</li>
-          <li>• Open structure: missing a converter? Open an issue and it&apos;ll likely ship next week.</li>
+          <li>
+            • Open structure: missing a converter? Open an issue and it&apos;ll
+            likely ship next week.
+          </li>
         </ul>
       </section>
     </div>

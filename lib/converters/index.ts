@@ -25,6 +25,7 @@ import { sqlToShape } from "./sql-shape";
 import { typescriptToShape } from "./typescript-shape";
 import { protobufToShape } from "./protobuf-shape";
 import { prismaToShape } from "./prisma-shape";
+import { openapiToShape } from "./openapi-shape";
 import { RENDERERS } from "./renderers";
 
 export interface ConvertResult {
@@ -131,4 +132,9 @@ for (const t of ALL_TARGETS) {
 // Prisma schema → 全部 15 个输出
 for (const t of ALL_TARGETS) {
   register("prisma", t, bridge(prismaToShape, t));
+}
+
+// OpenAPI 3.x → 全部 15 个输出（支持 JSON 和 YAML 两种格式）
+for (const t of ALL_TARGETS) {
+  register("openapi", t, bridge(openapiToShape, t));
 }
