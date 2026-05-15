@@ -44,6 +44,14 @@
 - ✅ 转换器页加**真实业务样例切换**：每种输入格式 3~5 个真实场景（User profile / E-commerce order / GitHub issue / Stripe-like charge / OpenAPI YAML / SQL 多表 等），用户一键切换
 - ✅ 输入框加 "edited" 提示，让用户知道内容已偏离样例
 
+### 内容产出
+
+- ✅ 起草英文技术文章（Dev.to / Hashnode 用）：《How I built a 150-page programmatic SEO site with Next.js static export and zero AI content》
+  - 不是推广帖，是技术分享。讲做法，结尾自然带链接，符合 Dev.to / HN 受众喜好
+  - 包含完整的 parser/renderer 抽象、SEO 踩坑、避免 aggregateRating 警告等细节
+- ✅ 起草中文技术文章（掘金 / 即刻 / V2EX 用）：《写一个能跑出 150 个页面的程序化 SEO 站，最关键的是这个抽象》
+  - 技术分享角度，讲 parser × renderer 矩阵设计
+
 ### SEO 文案升级
 
 - ✅ 为常见 (from, to) 配对手写**场景化 intro**（30+ 个），告诉用户具体什么时候会用到这个转换
