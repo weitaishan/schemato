@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180">
+  <rect width="180" height="180" rx="38" fill="#0b0d12"/>
+  <text x="90" y="118"
+        text-anchor="middle"
+        font-family="ui-monospace, Menlo, Consolas, monospace"
+        font-size="92"
+        font-weight="700"
+        fill="#7c9cff">{ }</text>
+</svg>

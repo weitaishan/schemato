@@ -47,6 +47,19 @@ graphql → 全部 15 个输出
 - ✅ README.md 重写为开源贡献者友好版本（含项目结构、贡献指南、roadmap）
 - ✅ LICENSE 添加 MIT 协议
 
+### Favicon + SEO 加强
+
+- ✅ Favicon：`app/icon.svg` + `app/apple-icon.svg`（深色 `{ }` 单色文字图标）
+- ✅ OG 分享图：`public/og.svg`（1200×630 静态 SVG，含品牌渐变 + slogan）
+- ✅ 全局 metadata 完善：keywords、Twitter card、OpenGraph、googleBot 指令
+- ✅ 每个 [slug] 页面注入 3 个 JSON-LD：
+  - `SoftwareApplication`（让 Google 识别为开发者工具）
+  - `FAQPage`（FAQ 区块可以在搜索结果展示富片段）
+  - `BreadcrumbList`（面包屑导航富片段）
+- ✅ 每页 metadata 增加针对性 keywords（`json to zod converter` 等）
+- ✅ Twitter card 改为 `summary_large_image` 且引用 OG 图
+- ✅ sitemap 按 Live / Preview 分级 priority（0.8 vs 0.4）
+
 ### 部署
 
 - ✅ 域名购买：`schemato.top`

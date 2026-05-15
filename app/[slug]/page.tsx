@@ -3,7 +3,6 @@ import { notFound } from "next/navigation";
 import {
   FORMATS,
   allConversions,
-  findFormatBySlug,
   type FormatId,
 } from "@/lib/formats";
 import { hasConverter } from "@/lib/converters";
@@ -16,13 +15,7 @@ interface RouteParams {
   params: Promise<{ slug: string }>;
 }
 
-/**
- * 解析 "json-schema-to-python-dataclass" 这种带连字符的复合 slug。
- * 因为 slug 本身可能包含 "-"，要按已知 format slug 匹配最长前缀。
- */
 function parseSlug(slug: string): { from: FormatId; to: FormatId } | null {
-  // 必须含 "-to-"
-  // 但 from 和 to 都可能本身就含 "-"（如 "json-schema"），所以从所有 (from, to) 组合反查
   for (const c of allConversions()) {
     const expected = `${FORMATS[c.from].slug}-to-${FORMATS[c.to].slug}`;
     if (expected === slug) return c;
@@ -44,15 +37,31 @@ export async function generateMetadata({ params }: RouteParams): Promise<Metadat
   if (!pair) return { title: "Not found" };
   const seo = buildSeoCopy(pair.from, pair.to);
   const url = `${SITE.url}${pathFor(pair.from, pair.to)}`;
+  const f = FORMATS[pair.from];
+  const t = FORMATS[pair.to];
   return {
     title: seo.title,
     description: seo.description,
+    keywords: [
+      `${f.name.toLowerCase()} to ${t.name.toLowerCase()}`,
+      `${f.name.toLowerCase()} ${t.name.toLowerCase()} converter`,
+      `convert ${f.name.toLowerCase()} to ${t.name.toLowerCase()}`,
+      `${f.name.toLowerCase()} ${t.name.toLowerCase()} generator`,
+      `free ${t.name.toLowerCase()} generator`,
+    ],
     alternates: { canonical: url },
     openGraph: {
       title: seo.title,
       description: seo.description,
       url,
       type: "website",
+      images: [{ url: "/og.svg", width: 1200, height: 630 }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: seo.title,
+      description: seo.description,
+      images: ["/og.svg"],
     },
   };
 }
@@ -66,8 +75,9 @@ export default async function ConverterPage({ params }: RouteParams) {
   const to = FORMATS[pair.to];
   const available = hasConverter(pair.from, pair.to);
   const seo = buildSeoCopy(pair.from, pair.to);
+  const url = `${SITE.url}${pathFor(pair.from, pair.to)}`;
 
-  // 推荐 6 个相关转换：相同 from 的其它 to + 相同 to 的其它 from
+  // 推荐 8 个相关转换
   const related = [
     ...allConversions()
       .filter((c) => c.from === pair.from && c.to !== pair.to)
@@ -77,9 +87,57 @@ export default async function ConverterPage({ params }: RouteParams) {
       .slice(0, 4),
   ].slice(0, 8);
 
+  // ---- JSON-LD ----
+  const softwareLd = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: `${from.name} to ${to.name} Converter`,
+    applicationCategory: "DeveloperApplication",
+    operatingSystem: "Any (browser)",
+    url,
+    description: seo.description,
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    isAccessibleForFree: true,
+    inLanguage: "en",
+  };
+
+  const faqLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: seo.faq.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  };
+
+  const breadcrumbLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: SITE.url },
+      { "@type": "ListItem", position: 2, name: `${from.name} converters`, item: SITE.url },
+      { "@type": "ListItem", position: 3, name: seo.h1, item: url },
+    ],
+  };
+
   return (
     <div className="container-x py-12">
-      <nav className="text-sm text-dim mb-4">
+      {/* JSON-LD 结构化数据 */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
+      />
+
+      <nav className="text-sm text-dim mb-4" aria-label="breadcrumb">
         <a href="/" className="hover:text-text">Home</a>
         <span className="mx-2">/</span>
         <span>{seo.h1}</span>
