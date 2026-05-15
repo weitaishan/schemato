@@ -26,6 +26,8 @@ import { typescriptToShape } from "./typescript-shape";
 import { protobufToShape } from "./protobuf-shape";
 import { prismaToShape } from "./prisma-shape";
 import { openapiToShape } from "./openapi-shape";
+import { mongooseToShape } from "./mongoose-shape";
+import { avroToShapeEntry } from "./avro-shape";
 import { RENDERERS } from "./renderers";
 
 export interface ConvertResult {
@@ -137,4 +139,14 @@ for (const t of ALL_TARGETS) {
 // OpenAPI 3.x → 全部 15 个输出（支持 JSON 和 YAML 两种格式）
 for (const t of ALL_TARGETS) {
   register("openapi", t, bridge(openapiToShape, t));
+}
+
+// Mongoose schema → 全部 15 个输出
+for (const t of ALL_TARGETS) {
+  register("mongoose", t, bridge(mongooseToShape, t));
+}
+
+// Avro (.avsc) → 全部 15 个输出
+for (const t of ALL_TARGETS) {
+  register("avro", t, bridge(avroToShapeEntry, t));
 }

@@ -18,7 +18,7 @@
 - ✅ 实现 sitemap.ts + robots.ts（force-static 模式适配 output: export）
 - ✅ 实现首页矩阵展示 + 转换器双面板 UI
 
-### 实现的 Adapter（119 个 Live · 占 ~80%）
+### 实现的 Adapter（149 个 Live · 100% 覆盖率 🎉）
 
 架构升级：把 15 个语言渲染器集中到 `lib/converters/renderers.ts`，再写一个 `bridge(parser, target)` 桥接函数。任何新输入格式只要写一个 `xxxToShape(input)` 解析器，就能自动获得全部 15 个输出。
 
@@ -32,8 +32,8 @@
 | Protobuf | 15/15 ✅ | 解析 message 块 |
 | Prisma schema | 15/15 ✅ | 解析 model 块 |
 | OpenAPI 3.x | 15/15 ✅ | 同时支持 JSON 和 YAML（自带轻量 YAML 解析器） |
-| Avro | 0/15 | 待加 |
-| Mongoose | 0/15 | 待加 |
+| Mongoose schema | 15/15 ✅ | 解析 `new Schema({...})` 字段定义 |
+| Avro (.avsc) | 15/15 ✅ | 解析 record / enum / array / map / union |
 
 ### UI 升级
 
