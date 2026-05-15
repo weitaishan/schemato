@@ -43,7 +43,7 @@ json → ruby                 ✅ Live
 ### 部署
 
 - ✅ 域名购买：`schemato.top`
-- ✅ GitHub 仓库：https://github.com/weitaishan/money-project-2
+- ✅ GitHub 仓库：https://github.com/weitaishan/schemato
 - ✅ git 邮箱修正为 `450785730@qq.com`（与 GitHub 账号匹配）
 - ✅ Vercel 项目接入 GitHub，自动部署
 - ✅ DNS 配置：A 记录 `@` → `216.198.79.1`，CNAME `www` → `da5a22488ef26c38.vercel-dns-017.com`
@@ -69,6 +69,12 @@ json → ruby                 ✅ Live
   - 结论：发之前需要把仓库改 public，并且帖子要强调"开源 + 技术细节"
 
 - ⏳ r/SideProject、r/golang、r/rust 待尝试（规则更宽松）
+
+### GitHub 仓库改名
+
+- ✅ 仓库由 `money-project-2` 重命名为 `schemato`
+- ✅ 本地 git remote 已切换到新地址 `https://github.com/weitaishan/schemato.git`
+- ✅ PLAN.md 和 EXECUTION_LOG.md 内引用的旧链接全部替换为新地址
 
 ---
 

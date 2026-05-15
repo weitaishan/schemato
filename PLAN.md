@@ -1,7 +1,7 @@
 # Schemato 运营执行计划
 
 域名：https://www.schemato.top  
-GitHub：https://github.com/weitaishan/money-project-2  
+GitHub：https://github.com/weitaishan/schemato  
 部署：Vercel（push 即自动部署）  
 更新时间：2026-05-15
 
@@ -139,7 +139,7 @@ Feedback / feature requests welcome — what would make this useful for your wor
 ```
 I open-sourced a small converter that infers TypeScript interfaces and Zod schemas from raw JSON payloads.
 
-GitHub: https://github.com/weitaishan/money-project-2
+GitHub: https://github.com/weitaishan/schemato
 Live: https://www.schemato.top/json-to-zod
 
 Built without quicktype — uses a custom JSON shape inferrer (~150 LOC). Each language adapter is ~40-80 LOC, easy to extend.
@@ -166,7 +166,7 @@ Would appreciate feedback on:
 After getting tired of writing types by hand, I built Schemato — a browser-only converter from JSON / OpenAPI / GraphQL etc. into 15 typed languages.
 
 Live: https://www.schemato.top
-Repo: https://github.com/weitaishan/money-project-2
+Repo: https://github.com/weitaishan/schemato
 
 What's interesting from a webdev angle:
 - 10 inputs × 15 outputs = ~150 pages, all statically generated via generateStaticParams
@@ -198,7 +198,7 @@ Author here. Built this because I work across TS / Go / Python and got tired of 
 
 Currently 14 outputs are wired up for JSON inputs. Working on JSON Schema / GraphQL / SQL / Protobuf next.
 
-Open source: https://github.com/weitaishan/money-project-2
+Open source: https://github.com/weitaishan/schemato
 Happy to answer questions about the SEO + build pipeline.
 ```
 
