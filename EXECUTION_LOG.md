@@ -18,7 +18,7 @@
 - ✅ 实现 sitemap.ts + robots.ts（force-static 模式适配 output: export）
 - ✅ 实现首页矩阵展示 + 转换器双面板 UI
 
-### 实现的 Adapter（45 个 Live · 占 30%）
+### 实现的 Adapter（60 个 Live · 占 40%）
 
 架构升级：把 15 个语言渲染器集中到 `lib/converters/renderers.ts`，再写一个 `bridge(parser, target)` 桥接函数。任何新输入格式只要写一个 `xxxToShape(input)` 解析器，就能自动获得全部 15 个输出。
 
@@ -32,15 +32,9 @@ json → typescript / zod / pydantic / python-dataclass
 
 **JSON Schema 输入**（15/15 ✅，通过 bridge 自动获得）
 
-```
-json-schema → 全部 15 个输出
-```
-
 **GraphQL SDL 输入**（15/15 ✅，通过 bridge 自动获得）
 
-```
-graphql → 全部 15 个输出
-```
+**SQL DDL 输入**（15/15 ✅，覆盖 Postgres / MySQL / SQLite 公共子集，通过 bridge 自动获得）
 
 ### 文档完善
 

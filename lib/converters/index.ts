@@ -108,3 +108,8 @@ for (const t of ALL_TARGETS) {
 for (const t of ALL_TARGETS) {
   register("graphql", t, bridge(graphqlToShape, t));
 }
+
+// SQL DDL → 全部 15 个输出
+for (const t of ALL_TARGETS) {
+  register("sql", t, bridge(sqlToShape, t));
+}
