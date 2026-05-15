@@ -18,30 +18,34 @@
 - ✅ 实现 sitemap.ts + robots.ts（force-static 模式适配 output: export）
 - ✅ 实现首页矩阵展示 + 转换器双面板 UI
 
-### 实现的 Adapter（17 个 Live）
+### 实现的 Adapter（45 个 Live · 占 30%）
 
-全部真实可用，浏览器端运行：
+架构升级：把 15 个语言渲染器集中到 `lib/converters/renderers.ts`，再写一个 `bridge(parser, target)` 桥接函数。任何新输入格式只要写一个 `xxxToShape(input)` 解析器，就能自动获得全部 15 个输出。
+
+**JSON 输入** （15/15 ✅）
 
 ```
-json → typescript           ✅ Live
-json → zod                  ✅ Live
-json → pydantic             ✅ Live
-json → go-struct            ✅ Live
-json → rust-struct          ✅ Live
-json → swift                ✅ Live
-json → kotlin               ✅ Live
-json → java                 ✅ Live
-json → csharp               ✅ Live
-json → dart                 ✅ Live
-json → yup                  ✅ Live
-json → joi                  ✅ Live
-json → python-dataclass     ✅ Live
-json → php                  ✅ Live
-json → ruby                 ✅ Live
-json-schema → typescript    ✅ Live
-json-schema → zod           ✅ Live
-json-schema → pydantic      ✅ Live
+json → typescript / zod / pydantic / python-dataclass
+     → go-struct / rust-struct / swift / kotlin / java / csharp / dart
+     → yup / joi / php / ruby
 ```
+
+**JSON Schema 输入**（15/15 ✅，通过 bridge 自动获得）
+
+```
+json-schema → 全部 15 个输出
+```
+
+**GraphQL SDL 输入**（15/15 ✅，通过 bridge 自动获得）
+
+```
+graphql → 全部 15 个输出
+```
+
+### 文档完善
+
+- ✅ README.md 重写为开源贡献者友好版本（含项目结构、贡献指南、roadmap）
+- ✅ LICENSE 添加 MIT 协议
 
 ### 部署
 

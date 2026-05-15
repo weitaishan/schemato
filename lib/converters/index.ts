@@ -18,9 +18,10 @@ import { jsonToJoi } from "./json-to-joi";
 import { jsonToPythonDataclass } from "./json-to-python-dataclass";
 import { jsonToPhp } from "./json-to-php";
 import { jsonToRuby } from "./json-to-ruby";
-import { jsonschemaToTypeScript } from "./jsonschema-to-typescript";
-import { jsonschemaToZod } from "./jsonschema-to-zod";
-import { jsonschemaToPydantic } from "./jsonschema-to-pydantic";
+
+import { jsonSchemaToShape } from "./jsonschema-shape";
+import { graphqlToShape } from "./graphql-shape";
+import { RENDERERS } from "./renderers";
 
 export interface ConvertResult {
   ok: boolean;
@@ -50,7 +51,9 @@ export function hasConverter(from: FormatId, to: FormatId): boolean {
   return REGISTRY.has(key(from, to));
 }
 
-// ---- 注册 MVP 转换器 ----
+// -----------------------------------------------------------------
+// JSON → 全部 15 个输出（每个都有自己的 adapter，因为 JSON 解析逻辑不同）
+// -----------------------------------------------------------------
 register("json", "typescript", jsonToTypeScript);
 register("json", "zod", jsonToZod);
 register("json", "pydantic", jsonToPydantic);
@@ -67,7 +70,40 @@ register("json", "python-dataclass", jsonToPythonDataclass);
 register("json", "php", jsonToPhp);
 register("json", "ruby", jsonToRuby);
 
-// json-schema → X
-register("json-schema", "typescript", jsonschemaToTypeScript);
-register("json-schema", "zod", jsonschemaToZod);
-register("json-schema", "pydantic", jsonschemaToPydantic);
+// -----------------------------------------------------------------
+// 通用桥接：parser(input) → Shape，然后用 RENDERERS 渲染所有目标语言
+// 所有"非 JSON 输入格式"都走这条路。
+// -----------------------------------------------------------------
+type Parser = (input: string, rootName: string) =>
+  | { ok: true; shape: import("./json-shape").Shape }
+  | { ok: false; error: string };
+
+function bridge(parser: Parser, target: FormatId): ConvertFn {
+  return (input, opts) => {
+    const r = parser(input, opts?.rootName ?? "Root");
+    if (!r.ok) return { ok: false, code: "", error: r.error };
+    const renderer = RENDERERS[target];
+    if (!renderer) return { ok: false, code: "", error: `No renderer registered for ${target}` };
+    try {
+      const code = renderer(r.shape, opts?.rootName ?? (r.shape.kind === "object" ? r.shape.typeName ?? "Root" : "Root"));
+      return { ok: true, code };
+    } catch (e) {
+      return { ok: false, code: "", error: (e as Error).message };
+    }
+  };
+}
+
+// JSON Schema → 全部 15 个输出
+const ALL_TARGETS: FormatId[] = [
+  "typescript", "zod", "pydantic", "python-dataclass",
+  "go-struct", "rust-struct", "swift", "kotlin", "java", "csharp", "dart",
+  "yup", "joi", "php", "ruby",
+];
+for (const t of ALL_TARGETS) {
+  register("json-schema", t, bridge(jsonSchemaToShape, t));
+}
+
+// GraphQL → 全部 15 个输出（先开 typescript / zod / pydantic / go-struct / rust-struct，其它也注册了，效果取决于 SDL 复杂度）
+for (const t of ALL_TARGETS) {
+  register("graphql", t, bridge(graphqlToShape, t));
+}
