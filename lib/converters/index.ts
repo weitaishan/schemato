@@ -6,6 +6,18 @@ import type { FormatId } from "../formats";
 import { jsonToTypeScript } from "./json-to-typescript";
 import { jsonToZod } from "./json-to-zod";
 import { jsonToPydantic } from "./json-to-pydantic";
+import { jsonToGoStruct } from "./json-to-go-struct";
+import { jsonToSwift } from "./json-to-swift";
+import { jsonToKotlin } from "./json-to-kotlin";
+import { jsonToRustStruct } from "./json-to-rust-struct";
+import { jsonToJava } from "./json-to-java";
+import { jsonToCsharp } from "./json-to-csharp";
+import { jsonToDart } from "./json-to-dart";
+import { jsonToYup } from "./json-to-yup";
+import { jsonToJoi } from "./json-to-joi";
+import { jsonToPythonDataclass } from "./json-to-python-dataclass";
+import { jsonToPhp } from "./json-to-php";
+import { jsonToRuby } from "./json-to-ruby";
 
 export interface ConvertResult {
   ok: boolean;
@@ -39,3 +51,15 @@ export function hasConverter(from: FormatId, to: FormatId): boolean {
 register("json", "typescript", jsonToTypeScript);
 register("json", "zod", jsonToZod);
 register("json", "pydantic", jsonToPydantic);
+register("json", "go-struct", jsonToGoStruct);
+register("json", "swift", jsonToSwift);
+register("json", "kotlin", jsonToKotlin);
+register("json", "rust-struct", jsonToRustStruct);
+register("json", "java", jsonToJava);
+register("json", "csharp", jsonToCsharp);
+register("json", "dart", jsonToDart);
+register("json", "yup", jsonToYup);
+register("json", "joi", jsonToJoi);
+register("json", "python-dataclass", jsonToPythonDataclass);
+register("json", "php", jsonToPhp);
+register("json", "ruby", jsonToRuby);
