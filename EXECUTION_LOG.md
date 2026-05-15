@@ -41,6 +41,18 @@
 - ✅ 加 All / Live 切换 tab，便于用户找真实可用的转换
 - ✅ 实时显示匹配数量
 - ✅ Hero 文案更新：列出全部 8 个输入格式
+- ✅ 转换器页加**真实业务样例切换**：每种输入格式 3~5 个真实场景（User profile / E-commerce order / GitHub issue / Stripe-like charge / OpenAPI YAML / SQL 多表 等），用户一键切换
+- ✅ 输入框加 "edited" 提示，让用户知道内容已偏离样例
+
+### SEO 文案升级
+
+- ✅ 为常见 (from, to) 配对手写**场景化 intro**（30+ 个），告诉用户具体什么时候会用到这个转换
+  - 比如 `json→pydantic`：FastAPI 用户的真实场景
+  - 比如 `sql→rust-struct`：搭配 sqlx 的真实工作流
+  - 比如 `mongoose→typescript`：取代手写类型声明的场景
+- ✅ 每页 pitfalls 按目标语言定制（zod 的 nullable 处理、Go 的零值陷阱、Pydantic 的 strict 模式等）
+- ✅ FAQ 增加"是否开源"问题
+- ✅ how-to-use 步骤提示用户可以切换样例
 
 ### 文档完善
 
