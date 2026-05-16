@@ -139,11 +139,23 @@
 - ✅ sitemap 给指南页 priority 0.9（高于工具页 0.8）
 - ✅ Changelog 加今天的更新条目
 
-为什么做这个：
-- "how to convert json to zod" 是开发者最高频的搜索类型（HowTo 富片段几乎稳进搜索结果）
-- 一篇好的 step-by-step 比 10 个工具页更能拉权重
-- HowTo + FAQPage 双结构化数据让搜索结果占据更大位置（更多点击）
-- 给整站建立第三种内容类型（工具页、对比页、指南页），topical authority 更强
+### 长文指南页（第二篇）+ RSS + 首页改造
+
+- ✅ 新增 `/guides/json-schema-to-pydantic`：FastAPI 受众长文指南
+  - 5 步流程：找 schema → 生成 model → 接 FastAPI → 加 discriminator → strict 模式
+  - 含 4 条 pitfalls + 4 条 FAQ
+  - HowTo + FAQPage 双 JSON-LD
+- ✅ 新增 `/rss.xml`：RSS 2.0 feed，包含 changelog + guides
+  - layout 加 `<link rel="alternate" type="application/rss+xml">` 自动发现
+- ✅ 首页加 "Latest from the changelog" 区块（最近 3 条更新）
+- ✅ 首页加 "Guides" 区块（直接展示两篇长文）
+- ✅ Guides 索引把 json-schema-to-pydantic 标为已发布
+
+为什么做这些：
+- 第二篇指南把流量入口从 TS 圈扩展到 Python / FastAPI 圈
+- 首页 changelog 区块让访客一眼判断"这站是活的"——比 ProductHunt 上的 maintained badge 信号更强
+- RSS 让重度开发者能用阅读器订阅，长期复用流量
+- 总页面类型现在 5 种：tools (149) / hubs (10) / guides (2 + index) / compare (1) / changelog (1)
 
 ### SEO 文案升级
 

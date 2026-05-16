@@ -33,7 +33,7 @@ const GUIDES: Guide[] = [
     href: "/guides/json-schema-to-pydantic",
     title: "How to turn JSON Schema into Pydantic models",
     blurb: "Walking $ref, required, oneOf, and getting clean FastAPI models.",
-    status: "soon",
+    status: "published",
   },
   {
     href: "/guides/openapi-to-typescript",

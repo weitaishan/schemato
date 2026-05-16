@@ -8,6 +8,7 @@ import { hasConverter } from "@/lib/converters";
 import { pathFor } from "@/lib/url";
 import { SITE } from "@/lib/site";
 import MatrixSearch from "@/components/MatrixSearch";
+import { ENTRIES } from "@/lib/changelog";
 
 export default function HomePage() {
   const all = allConversions();
@@ -88,6 +89,57 @@ export default function HomePage() {
             likely ship next week.
           </li>
         </ul>
+      </section>
+
+      <section className="mt-20 max-w-3xl">
+        <div className="flex items-baseline justify-between">
+          <h2 className="text-2xl font-bold">Latest from the changelog</h2>
+          <a href="/changelog" className="text-sm text-accent hover:underline">
+            See all →
+          </a>
+        </div>
+        <p className="text-dim mt-2 text-sm">
+          {SITE.name} is built in public. New features ship every few days.
+        </p>
+        <div className="mt-6 space-y-4">
+          {ENTRIES.slice(0, 3).map((e, i) => (
+            <article key={i} className="card p-4">
+              <div className="flex items-baseline justify-between gap-3 flex-wrap">
+                <h3 className="text-base font-semibold">{e.title}</h3>
+                <time className="text-xs text-mute font-mono shrink-0">{e.date}</time>
+              </div>
+              <ul className="mt-2 text-dim text-sm space-y-1">
+                {e.bullets.slice(0, 2).map((b, j) => (
+                  <li key={j}>• {b.replace(/`([^`]+)`/g, "$1").replace(/&lt;|&gt;|<[^>]+>/g, "")}</li>
+                ))}
+              </ul>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="mt-20 max-w-3xl">
+        <h2 className="text-2xl font-bold">Guides</h2>
+        <p className="text-dim mt-2 text-sm">
+          Long-form, copy-paste-friendly walkthroughs.
+        </p>
+        <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <a href="/guides/json-to-zod" className="card p-4 hover:border-accent transition">
+            <div className="font-semibold">How to convert JSON to a Zod schema</div>
+            <p className="text-dim text-sm mt-1">
+              From a raw JSON sample to a validated, typed schema you can reuse in fetch, forms, and tRPC.
+            </p>
+          </a>
+          <a href="/guides/json-schema-to-pydantic" className="card p-4 hover:border-accent transition">
+            <div className="font-semibold">JSON Schema → Pydantic v2 (FastAPI)</div>
+            <p className="text-dim text-sm mt-1">
+              Walk $ref, required, oneOf into Pydantic models you can drop straight into FastAPI handlers.
+            </p>
+          </a>
+        </div>
+        <a href="/guides" className="text-sm text-accent hover:underline mt-4 inline-block">
+          All guides →
+        </a>
       </section>
     </div>
   );

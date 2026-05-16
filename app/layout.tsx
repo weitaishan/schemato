@@ -80,6 +80,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <head>
+        <link
+          rel="alternate"
+          type="application/rss+xml"
+          title={`${SITE.name} — changelog & guides`}
+          href="/rss.xml"
+        />
         <script
           type="application/ld+json"
           // eslint-disable-next-line react/no-danger
