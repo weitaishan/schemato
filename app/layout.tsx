@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { SITE } from "@/lib/site";
+import BugReporter from "@/components/BugReporter";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
@@ -115,6 +116,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </div>
         </header>
         <main>{children}</main>
+        <BugReporter repoIssuesUrl="https://github.com/weitaishan/schemato/issues" />
         <footer className="border-t border-border mt-24">
           <div className="container-x py-10 text-sm text-mute flex flex-wrap items-center justify-between gap-3">
             <div>
@@ -125,6 +127,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <a href="/guides" className="hover:text-text">Guides</a>
               <a href="/changelog" className="hover:text-text">Changelog</a>
               <a href="/compare/quicktype" className="hover:text-text">vs quicktype</a>
+              <a href="/compare/json2ts" className="hover:text-text">vs json2ts</a>
               <a href="/sitemap.xml" className="hover:text-text">Sitemap</a>
               <a
                 href="https://github.com/weitaishan/schemato"

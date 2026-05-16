@@ -89,6 +89,60 @@ export default function HomePage() {
             likely ship next week.
           </li>
         </ul>
+        <div className="mt-6 flex flex-wrap gap-2">
+          <a
+            href="https://github.com/weitaishan/schemato"
+            target="_blank"
+            rel="noreferrer"
+            className="inline-block"
+            aria-label="GitHub stars"
+          >
+            {/* shields.io 静态徽章 */}
+            <img
+              src="https://img.shields.io/github/stars/weitaishan/schemato?style=flat-square&logo=github&label=stars&color=7c9cff&labelColor=12151c"
+              alt="GitHub stars"
+              height={20}
+            />
+          </a>
+          <a
+            href="https://github.com/weitaishan/schemato/blob/main/LICENSE"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <img
+              src="https://img.shields.io/github/license/weitaishan/schemato?style=flat-square&color=5eead4&labelColor=12151c"
+              alt="License"
+              height={20}
+            />
+          </a>
+          <a
+            href="https://github.com/weitaishan/schemato/commits/main"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <img
+              src="https://img.shields.io/github/last-commit/weitaishan/schemato?style=flat-square&color=fbbf24&labelColor=12151c"
+              alt="Last commit"
+              height={20}
+            />
+          </a>
+          <a
+            href="https://github.com/weitaishan/schemato/issues"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <img
+              src="https://img.shields.io/github/issues/weitaishan/schemato?style=flat-square&color=f472b6&labelColor=12151c"
+              alt="Open issues"
+              height={20}
+            />
+          </a>
+          <img
+            src="https://img.shields.io/badge/converters-149%2F149%20live-4ade80?style=flat-square&labelColor=12151c"
+            alt="149/149 live converters"
+            height={20}
+          />
+        </div>
       </section>
 
       <section className="mt-20 max-w-3xl">
