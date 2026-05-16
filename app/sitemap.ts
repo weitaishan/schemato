@@ -30,6 +30,8 @@ export default function sitemap({ id }: Params): MetadataRoute.Sitemap {
       { url: `${SITE.url}/`, lastModified: now, changeFrequency: "weekly", priority: 1.0 },
       { url: `${SITE.url}/changelog`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
       { url: `${SITE.url}/compare/quicktype`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
+      { url: `${SITE.url}/guides`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
+      { url: `${SITE.url}/guides/json-to-zod`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
       ...INPUT_FORMATS.map((fid) => ({
         url: `${SITE.url}/format/${FORMATS[fid].slug}`,
         lastModified: now,

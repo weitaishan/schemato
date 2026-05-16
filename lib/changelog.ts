@@ -15,6 +15,18 @@ export interface ChangelogEntry {
 export const ENTRIES: ChangelogEntry[] = [
   {
     date: "2026-05-16",
+    title: "Hub pages, comparison page, first guide",
+    tags: ["feat", "docs"],
+    bullets: [
+      "Added 10 input-format hub pages at `/format/<input>` (e.g. `/format/json`, `/format/openapi`).",
+      "Added `/compare/quicktype` — feature-by-feature comparison with the best-known competitor.",
+      "Published the first long-form guide: `/guides/json-to-zod` — step-by-step walkthrough with refinements, fetch validation, React Hook Form, and tRPC integration.",
+      "`Next steps` section now appears on every conversion page with code examples for 15 target languages.",
+      "Sitemap split into 11 files via `generateSitemaps`.",
+    ],
+  },
+  {
+    date: "2026-05-16",
     title: "Build in public — open changelog page",
     tags: ["docs"],
     bullets: [

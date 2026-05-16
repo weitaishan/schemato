@@ -123,6 +123,28 @@
 - "schemato vs quicktype" 没有竞争，进 Google 前 5 几乎稳的
 - 即使读者最后选 quicktype，他也知道了 Schemato 的存在
 
+### 长文指南页（第一篇）
+
+- ✅ 新增 `/guides/json-to-zod`：6 步 step-by-step 长文指南
+  - Step 1：找一个有代表性的 JSON 样例
+  - Step 2：用工具生成基础 schema
+  - Step 3：手动加 refinement（.email() / .min() / .positive() 等）
+  - Step 4：用 schema.parse() 验证 fetch 响应
+  - Step 5：搭配 React Hook Form
+  - Step 6：搭配 tRPC procedure input
+  - 包含 4 条 common pitfalls + 4 条 FAQ
+- ✅ HowTo + FAQPage 双 JSON-LD
+- ✅ 新增 `/guides` 索引页：列出所有指南（已发布 1 篇 + 占位 3 篇）
+- ✅ Header 加 Guides 导航 + Footer 加 Guides + vs quicktype 链接
+- ✅ sitemap 给指南页 priority 0.9（高于工具页 0.8）
+- ✅ Changelog 加今天的更新条目
+
+为什么做这个：
+- "how to convert json to zod" 是开发者最高频的搜索类型（HowTo 富片段几乎稳进搜索结果）
+- 一篇好的 step-by-step 比 10 个工具页更能拉权重
+- HowTo + FAQPage 双结构化数据让搜索结果占据更大位置（更多点击）
+- 给整站建立第三种内容类型（工具页、对比页、指南页），topical authority 更强
+
 ### SEO 文案升级
 
 - ✅ 为常见 (from, to) 配对手写**场景化 intro**（30+ 个），告诉用户具体什么时候会用到这个转换

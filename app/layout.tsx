@@ -95,6 +95,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </a>
             <nav className="flex items-center gap-4 text-sm text-dim">
               <a href="/#converters" className="hover:text-text">All converters</a>
+              <a href="/guides" className="hover:text-text">Guides</a>
               <a href="/changelog" className="hover:text-text">Changelog</a>
               <a
                 href="https://github.com/weitaishan/schemato"
@@ -115,7 +116,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </div>
             <div className="flex gap-4">
               <a href="/" className="hover:text-text">Home</a>
+              <a href="/guides" className="hover:text-text">Guides</a>
               <a href="/changelog" className="hover:text-text">Changelog</a>
+              <a href="/compare/quicktype" className="hover:text-text">vs quicktype</a>
               <a href="/sitemap.xml" className="hover:text-text">Sitemap</a>
               <a
                 href="https://github.com/weitaishan/schemato"
