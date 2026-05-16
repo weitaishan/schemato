@@ -96,6 +96,33 @@
 - Google 抓取效率更高（按主题分组）
 - 后续如果某个输入格式出问题（比如 OpenAPI 解析变化），sitemap 也好定位
 
+### 输入格式聚合页（hub 页）
+
+- ✅ 新增 `/format/<input>` 路径：每个输入格式一个 hub 页
+  - `/format/json` / `/format/openapi` / `/format/json-schema` / `/format/graphql` / `/format/sql` / `/format/protobuf` / `/format/prisma` / `/format/typescript` / `/format/mongoose` / `/format/avro`
+- ✅ 每个 hub 页：手写 intro + 列出该输入对应的全部 14~15 个转换 + 默认样例 + CollectionPage JSON-LD
+- ✅ 首页加"Browse by input"快捷标签，给 hub 页注入内链权重
+- ✅ sitemap 把 10 个 hub 页都加进去（priority 0.7）
+
+为什么做这个：
+- 命中"json converter"、"openapi converter"这种**短关键词**（搜索量比"json to zod"大 5~10 倍）
+- 给 Google 一个"主题聚合"信号，让整站的 topical authority 更强
+- 用户从首页点进 hub 页，再点进具体转换页：这是一条更自然的浏览路径
+
+### Compare 对比页
+
+- ✅ 新增 `/compare/quicktype`：和最有名的竞品做正面对比
+  - 11 行 feature-by-feature 表格
+  - "TL;DR"段落直说什么时候用 Schemato，什么时候用 quicktype
+  - "When Schemato is better fit" + "When quicktype is better fit" 两节
+  - Article JSON-LD
+- ✅ sitemap 加 `/compare/quicktype`（priority 0.7）
+
+为什么做这个：
+- "X vs Y" 是开发者第二爱搜的词类型（仅次于 "how to..."）
+- "schemato vs quicktype" 没有竞争，进 Google 前 5 几乎稳的
+- 即使读者最后选 quicktype，他也知道了 Schemato 的存在
+
 ### SEO 文案升级
 
 - ✅ 为常见 (from, to) 配对手写**场景化 intro**（30+ 个），告诉用户具体什么时候会用到这个转换

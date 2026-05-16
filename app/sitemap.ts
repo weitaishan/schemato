@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { SITE } from "@/lib/site";
-import { allConversions, INPUT_FORMATS } from "@/lib/formats";
+import { allConversions, INPUT_FORMATS, FORMATS } from "@/lib/formats";
 import { hasConverter } from "@/lib/converters";
 import { pathFor } from "@/lib/url";
 
@@ -29,6 +29,13 @@ export default function sitemap({ id }: Params): MetadataRoute.Sitemap {
     return [
       { url: `${SITE.url}/`, lastModified: now, changeFrequency: "weekly", priority: 1.0 },
       { url: `${SITE.url}/changelog`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
+      { url: `${SITE.url}/compare/quicktype`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
+      ...INPUT_FORMATS.map((fid) => ({
+        url: `${SITE.url}/format/${FORMATS[fid].slug}`,
+        lastModified: now,
+        changeFrequency: "weekly" as const,
+        priority: 0.7,
+      })),
     ];
   }
 

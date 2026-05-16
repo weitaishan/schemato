@@ -59,6 +59,21 @@ export default function HomePage() {
           </div>
         </div>
 
+        <div className="mb-6 flex flex-wrap gap-2">
+          <span className="text-xs uppercase tracking-widest text-mute mr-1 self-center">
+            Browse by input:
+          </span>
+          {INPUT_FORMATS.map((id) => (
+            <a
+              key={id}
+              href={`/format/${FORMATS[id].slug}`}
+              className="text-xs px-2.5 py-1 rounded-full border border-border text-dim hover:border-accent hover:text-text transition"
+            >
+              {FORMATS[id].name}
+            </a>
+          ))}
+        </div>
+
         <MatrixSearch entries={entries} />
       </section>
 
