@@ -7,6 +7,7 @@ import {
 } from "@/lib/formats";
 import { hasConverter } from "@/lib/converters";
 import { buildSeoCopy } from "@/lib/seo-copy";
+import { nextStepsFor } from "@/lib/next-steps";
 import ConverterShell from "@/components/ConverterShell";
 import { pathFor } from "@/lib/url";
 import { SITE } from "@/lib/site";
@@ -76,6 +77,7 @@ export default async function ConverterPage({ params }: RouteParams) {
   const available = hasConverter(pair.from, pair.to);
   const seo = buildSeoCopy(pair.from, pair.to);
   const url = `${SITE.url}${pathFor(pair.from, pair.to)}`;
+  const nextSteps = nextStepsFor(pair.to);
 
   // 推荐 8 个相关转换
   const related = [
@@ -192,6 +194,28 @@ export default async function ConverterPage({ params }: RouteParams) {
           ))}
         </div>
       </article>
+
+      {nextSteps.length > 0 && (
+        <section className="mt-16">
+          <h2 className="text-2xl font-bold">Next steps with {to.name}</h2>
+          <p className="text-dim mt-2">
+            Once you have the generated code, here are the most common ways to use it in a real project.
+          </p>
+          <div className="mt-6 space-y-4">
+            {nextSteps.map((step, i) => (
+              <div key={i} className="card p-5">
+                <div className="font-semibold">{step.title}</div>
+                <p className="text-dim mt-2 leading-relaxed">{step.body}</p>
+                {step.code && (
+                  <pre className="mt-3 bg-panel2 border border-border rounded-lg p-3 code-pre overflow-x-auto">
+                    {step.code.src}
+                  </pre>
+                )}
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
 
       <section className="mt-16">
         <h2 className="text-2xl font-bold">Related converters</h2>

@@ -67,6 +67,35 @@
 - HN / Reddit 一旦发推广，访客点进来第一件事会找"这是不是死站"，changelog 是最好的回答
 - Google 看到一个有 changelog 的站会认为它是定期更新的（有助于 SEO 权重）
 
+### 每页 "Next steps" 建议
+
+- ✅ 加 `lib/next-steps.ts`：为每个目标语言/库写了 2~3 条"代码生成完之后怎么用"的建议
+  - Zod：validate fetch responses / React Hook Form / 复用 z.infer
+  - Pydantic：FastAPI handler 用法 / model_dump_json round-trip / strict 模式
+  - Go struct：json.Decoder 例子 / 加 validate tags
+  - Rust：serde_json 一行解析 / 配合 axum/actix 的方式
+  - 其它 11 个语言各自有定制建议
+- ✅ 在每个转换器页底部加 "Next steps with X" 区块，含代码片段
+
+为什么做这个：
+- 用户拿到代码不知道怎么用 → 流失；告诉他下一步用法 → 留下
+- 命中长尾搜索词："how to validate with zod"、"go struct with json decoder" 等
+- 增加页面停留时长（SEO 信号）
+
+### sitemap.xml 多文件拆分
+
+- ✅ 用 Next.js 原生 `generateSitemaps` 把 sitemap 拆成 11 个子文件：
+  - `sitemap/core.xml`：首页 + changelog 等 meta 页面
+  - `sitemap/0.xml ~ sitemap/9.xml`：每个输入格式的所有转换页面
+  - 根 `/sitemap.xml` 自动生成 sitemap index 串起所有子 sitemap
+- ✅ 每个子 sitemap 限定 ~15 个 URL，远低于 Google 单文件 50,000 URL 上限
+- ✅ Live 页面 priority 0.8、Preview（已经全部 Live 了）也按规则给
+
+为什么做这个：
+- 大站 SEO 最佳实践
+- Google 抓取效率更高（按主题分组）
+- 后续如果某个输入格式出问题（比如 OpenAPI 解析变化），sitemap 也好定位
+
 ### SEO 文案升级
 
 - ✅ 为常见 (from, to) 配对手写**场景化 intro**（30+ 个），告诉用户具体什么时候会用到这个转换
