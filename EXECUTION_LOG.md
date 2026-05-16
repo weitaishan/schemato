@@ -157,6 +157,28 @@
 - RSS 让重度开发者能用阅读器订阅，长期复用流量
 - 总页面类型现在 5 种：tools (149) / hubs (10) / guides (2 + index) / compare (1) / changelog (1)
 
+### 第三、第四篇指南
+
+- ✅ `/guides/openapi-to-typescript`：5 步指南
+  - 为什么不用 openapi-typescript / orval 这种重量级 codegen
+  - 用 fetch + 类型 + React Query 的轻量路径
+  - 何时切到 Zod 加运行时校验
+  - 4 条 pitfalls + 4 条 FAQ + HowTo + FAQPage JSON-LD
+- ✅ `/guides/sql-to-go-struct`：5 步指南
+  - 涵盖 Postgres / MySQL / SQLite 公共子集
+  - 默认输出 vs 调优后输出（int → int64、time.Time、db tag）
+  - 用 database/sql 和 sqlx 两种 scan 路径
+  - 4 条 pitfalls + 4 条 FAQ + HowTo + FAQPage JSON-LD
+- ✅ Guides 索引页 4 篇全部 published 状态
+- ✅ RSS feed 包含全部 4 篇 guides
+- ✅ Sitemap 加上两篇新指南，priority 0.9
+- ✅ Changelog 加今天的两条新条目
+
+为什么做这些：
+- 现在站内有 4 个 HowTo 富片段页面，覆盖前后端两条主线（TS/Zod 和 Python/Pydantic 和 OpenAPI/客户端 和 SQL/Go）
+- 4 篇指南互相内链，Google 看到主题聚类，topical authority 加成大
+- Guides 区域不再有"Soon"占位 → 整站看起来更专业完整
+
 ### SEO 文案升级
 
 - ✅ 为常见 (from, to) 配对手写**场景化 intro**（30+ 个），告诉用户具体什么时候会用到这个转换
