@@ -39,6 +39,22 @@ const GUIDES_FEED: FeedItem[] = [
       "Walk a JSON Schema (with $ref, required, oneOf) into Pydantic v2 models you can drop straight into FastAPI handlers.",
     guid: `${SITE.url}/guides/json-schema-to-pydantic`,
   },
+  {
+    title: "Convert an OpenAPI spec into TypeScript types (without a generator)",
+    link: `${SITE.url}/guides/openapi-to-typescript`,
+    pubDate: new Date("2026-05-16T12:00:00Z"),
+    description:
+      "When you don't need a full client, just types: a 5-minute guide to picking the OpenAPI schema you actually need and turning it into clean TypeScript interfaces.",
+    guid: `${SITE.url}/guides/openapi-to-typescript`,
+  },
+  {
+    title: "From CREATE TABLE to a Go struct that scans rows",
+    link: `${SITE.url}/guides/sql-to-go-struct`,
+    pubDate: new Date("2026-05-16T13:00:00Z"),
+    description:
+      "Postgres / MySQL / SQLite DDL → Go struct with json + db tags, ready to scan with database/sql or sqlx.",
+    guid: `${SITE.url}/guides/sql-to-go-struct`,
+  },
 ];
 
 export function GET() {

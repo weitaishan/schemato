@@ -15,7 +15,18 @@ export interface ChangelogEntry {
 export const ENTRIES: ChangelogEntry[] = [
   {
     date: "2026-05-16",
-    title: "Hub pages, comparison page, first guide",
+    title: "Guides section is fully populated",
+    tags: ["docs"],
+    bullets: [
+      "Published `/guides/openapi-to-typescript` — when you don't need a full openapi-typescript / orval generator.",
+      "Published `/guides/sql-to-go-struct` — turn DDL into a struct that scans with database/sql or sqlx.",
+      "All 4 guides on the index are now real, no more placeholders.",
+      "RSS feed includes all 4 guides plus the changelog stream.",
+    ],
+  },
+  {
+    date: "2026-05-16",
+    title: "Hub pages, comparison page, first guides + RSS",
     tags: ["feat", "docs"],
     bullets: [
       "Added 10 input-format hub pages at `/format/<input>` (e.g. `/format/json`, `/format/openapi`).",

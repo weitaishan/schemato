@@ -39,13 +39,13 @@ const GUIDES: Guide[] = [
     href: "/guides/openapi-to-typescript",
     title: "Convert an OpenAPI spec into TypeScript types (without a generator)",
     blurb: "Why you might not need openapi-typescript or orval for small projects.",
-    status: "soon",
+    status: "published",
   },
   {
     href: "/guides/sql-to-go-struct",
     title: "From CREATE TABLE to a Go struct that scans rows",
     blurb: "Pair with database/sql and sqlx for type-safe row scanning.",
-    status: "soon",
+    status: "published",
   },
 ];
 
