@@ -179,6 +179,29 @@
 - 4 篇指南互相内链，Google 看到主题聚类，topical authority 加成大
 - Guides 区域不再有"Soon"占位 → 整站看起来更专业完整
 
+### 浮动 BugReporter + 首页徽章 + 第二个对比页
+
+- ✅ 新增 `<BugReporter>` 组件挂到每页右下角，浮动按钮"Found a bug?"
+  - 三种入口：bug / 新转换器请求 / 通用 feature request
+  - 每个入口预填好 GitHub Issues 模板（含当前 URL、说明结构、labels）
+  - 用户体验：点一下按钮 → 选类型 → 跳到 GitHub Issues 已经预填好内容
+- ✅ 首页 Why 区块加 GitHub 徽章（用 shields.io 静态徽章，零 API key）
+  - GitHub stars / License / Last commit / Open issues / 149/149 live converters
+  - 这些徽章会自动反映 GitHub 真实数据（stars 等）
+  - "build in public" 信号显著
+- ✅ 新增 `/compare/json2ts`：第二个对比页
+  - 命中"json2ts alternative"、"json to typescript online"等关键词
+  - 11 行 feature 表 + TL;DR + Pick Schemato if you ever need 列表
+  - Article JSON-LD
+- ✅ Footer 加"vs json2ts"链接
+- ✅ Sitemap 加 `/compare/json2ts`（priority 0.7）
+
+为什么做这些：
+- BugReporter 是开发者社区最爱的"生命体征"信号（说明项目活着、欢迎贡献、维护者听用户的）
+- 用户没法点链接 → 流失；让他能 1 秒提 bug → 留下 + 给项目带来真实需求
+- shields.io 徽章是"build in public" + "open source" 的视觉标识
+- 第二个对比页扩大可命中关键词面积（quicktype 之外，json2ts 也是高搜索量竞品名）
+
 ### SEO 文案升级
 
 - ✅ 为常见 (from, to) 配对手写**场景化 intro**（30+ 个），告诉用户具体什么时候会用到这个转换
