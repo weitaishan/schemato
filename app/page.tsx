@@ -43,6 +43,9 @@ export default function HomePage() {
           <a href="#converters" className="btn-ghost">
             Browse all
           </a>
+          <a href="/changelog" className="btn-ghost">
+            Changelog
+          </a>
         </div>
       </section>
 

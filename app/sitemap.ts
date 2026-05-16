@@ -10,6 +10,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
   return [
     { url: `${SITE.url}/`, lastModified: now, changeFrequency: "weekly", priority: 1.0 },
+    { url: `${SITE.url}/changelog`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
     ...allConversions().map((c) => {
       const live = hasConverter(c.from, c.to);
       return {

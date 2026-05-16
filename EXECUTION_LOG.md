@@ -52,6 +52,21 @@
 - ✅ 起草中文技术文章（掘金 / 即刻 / V2EX 用）：《写一个能跑出 150 个页面的程序化 SEO 站，最关键的是这个抽象》
   - 技术分享角度，讲 parser × renderer 矩阵设计
 
+### Build in Public · /changelog 页面
+
+- ✅ 新增 `/changelog` 公开页：把已经做过的事 + 进行中 + 路线图全部对外公开
+- ✅ Header / Footer / 首页 hero 都加 Changelog 入口
+- ✅ sitemap 包含 `/changelog`，priority 0.7
+- ✅ 加 `<lib/changelog.ts>` 数据源：以后只要往 ENTRIES 顶部加一条就能更新
+- ✅ 视觉上区分 4 种状态：Shipped / In progress / Up next / Later
+- ✅ tag 颜色区分：feat / fix / docs / perf / release / ux
+- ✅ 简易内联 markdown 支持（`code` 和 `<https://...>` 链接）
+
+为什么做这个：
+- 开发者社区偏爱"build in public"项目，看到 changelog 会觉得这是活的
+- HN / Reddit 一旦发推广，访客点进来第一件事会找"这是不是死站"，changelog 是最好的回答
+- Google 看到一个有 changelog 的站会认为它是定期更新的（有助于 SEO 权重）
+
 ### SEO 文案升级
 
 - ✅ 为常见 (from, to) 配对手写**场景化 intro**（30+ 个），告诉用户具体什么时候会用到这个转换
