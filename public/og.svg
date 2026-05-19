@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <radialGradient id="bg" cx="80%" cy="0%" r="100%">
+      <stop offset="0%" stop-color="#1c2238"/>
+      <stop offset="60%" stop-color="#0b0d12"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <g font-family="ui-monospace, Menlo, Consolas, monospace" fill="#e6e9ef">
+    <text x="80" y="160" font-size="38" font-weight="800" fill="#7c9cff">{ }<tspan fill="#e6e9ef" dx="20">Schemato</tspan></text>
+    <text x="80" y="290" font-size="72" font-weight="800" letter-spacing="-1.5">Convert any schema to</text>
+    <text x="80" y="380" font-size="72" font-weight="800" letter-spacing="-1.5" fill="#7c9cff">any code.</text>
+    <text x="80" y="460" font-size="28" fill="#9aa3b2">JSON · JSON Schema · GraphQL → TypeScript, Zod, Pydantic,</text>
+    <text x="80" y="500" font-size="28" fill="#9aa3b2">Go, Rust and 10 more languages.</text>
+    <text x="80" y="580" font-size="24" fill="#5eead4">Browser-only · Open source · Free</text>
+  </g>
+</svg>
