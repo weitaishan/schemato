@@ -1,10 +1,10 @@
 ---
 平台: 掘金 / 即刻 / V2EX (创意工作者节点)
-标题: 写一个能跑出 150 个页面的程序化 SEO 站，最关键的是这个抽象
-副标题: 一次完整的 parser × renderer 矩阵架构实战
+标题: 写一个能生成 149 个工具页的 Next.js 站，关键是这个抽象
+副标题: parser × renderer 矩阵架构的一次小型实战
 ---
 
-> 文末有项目链接，先讲做法。
+> 文末有项目链接，正文先讲架构和取舍。
 
 ## 起因
 
@@ -16,13 +16,15 @@
 4. 后端是 Python 的话再写一遍 Pydantic
 5. 总有一个地方 optional 写错，跑起来才发现
 
-quicktype 解决了一部分，但只覆盖几种输出语言，并且要装东西。我想要的是：每一个 "X 转 Y" 都有一个独立的网页，标题就是 "JSON to Zod"、"OpenAPI to Pydantic"，方便 Google 把搜索这些词的人送过来。
+quicktype 解决了一部分，但我想试一个更轻的形态：每一个 "X 转 Y" 都是一个独立网页，比如 "JSON to Zod"、"OpenAPI to Pydantic"。用户不用装 CLI，也不用配置项目，只要贴一段输入，就能拿到一个可以继续手改的起点。
 
-这就是程序化 SEO 站。但 2026 年再做这种站，比 2022 年要小心：
+这类站很容易滑向"换变量生成页面"。所以我一开始就给自己定了一个约束：页面首先必须是工具，其次才谈搜索流量。
 
-- AI 灌水内容现在被 Google 主动打压，不是被忽略
-- 静态导出 + 边缘 CDN，让 150 页规模的站托管成本几乎为零
-- LLM 让"写每页的真实业务逻辑"变得便宜了，所以应该把人力都花在内容深度上
+几个判断：
+
+- 薄内容页面不值得做，页面必须真的能完成转换
+- 静态导出 + CDN 足够支撑 150 页规模，不需要后端
+- LLM 可以帮忙写样例和重复代码，但核心抽象还是要自己设计
 
 下面是我最后落地的架构。**整个项目大概 3000 行，部署在 Vercel 免费层，构建 10 秒，149 个独立静态页面。**
 
@@ -88,17 +90,17 @@ interface Shape {
 
 这是这个项目能做出来的根本原因。
 
-## SEO 上的几个非显然的细节
+## 页面和搜索上的几个取舍
 
 ### 1. 不要用 SoftwareApplication 这个 schema 类型
 
-SoftwareApplication 和 WebApplication 都要求 `aggregateRating`（评分），不填会被 Google Search Console 提示。但**伪造评分会触发手动惩罚**。
+SoftwareApplication 和 WebApplication 都可能牵涉到 `aggregateRating`（评分）这类字段。不填会有提示，但为了过提示去伪造评分就很危险。
 
-正确做法：用 `HowTo`。每个工具页本来就是"如何把 X 转成 Y"，语义匹配，且不要求评分。
+我最后用的是 `HowTo`。每个工具页本来就是"如何把 X 转成 Y"，语义更贴近，也不用为了结构化数据去编不存在的评分。
 
 ### 2. 不能让 150 页内容长一个样
 
-Google 的反 spam 系统就是为了识别"同模板、不同变量"。我做的是：手写 30 个搜索量最高的 pair 的 intro，把它们的应用场景具体到框架名（FastAPI、sqlx、Codable 等）。剩下 120 页用 fallback 模板，无所谓——Google 排名是 per-page 的，30 个有差异的页面足够拉动整站权重。
+如果 150 页只是同一个模板替换变量，用户也看得出来。我做的是：先手写最重要的 30 个 pair 的 intro，把场景具体到框架名和工作流（FastAPI、sqlx、Codable 等）。剩下的页面再用保守模板兜底。
 
 举例对比：
 
@@ -108,13 +110,13 @@ Google 的反 spam 系统就是为了识别"同模板、不同变量"。我做�
 场景化：
 > "Most front-end engineers reach for this conversion when integrating a third-party API and the docs don't ship type definitions. Paste a real response and you get an interface that exactly matches the data on the wire — no Postman copy-paste, no manual typing, no drift."
 
-### 3. sitemap.xml 的 priority 要反映真实情况
+### 3. sitemap.xml 的 priority 要诚实
 
-Live 页面（工具真实可用）priority 0.8，preview 页面（占位）priority 0.4。这告诉 Google 把抓取预算花在真正有用的页面上。
+Live 页面（工具真实可用）priority 0.8，preview 页面（如果有占位）priority 0.4。不要把所有 URL 都标成 1.0，站点自己也应该知道哪些页面更重要。
 
 ### 4. 每页 3~5 个真实业务样例
 
-不是只有一个 default sample。每种输入都准备：User profile / E-commerce order / Stripe charge / GitHub issue / OpenAPI YAML / 多表 SQL DDL 等场景。用户能切换，Google 抓到的是真实结构化数据，停留时长也会涨。
+不是只有一个 default sample。每种输入都准备 User profile / E-commerce order / Stripe charge / GitHub issue / OpenAPI YAML / 多表 SQL DDL 等场景。用户可以切换样例，也更容易判断这个工具是否适合自己的数据。
 
 ## Next.js 的部分
 
@@ -143,9 +145,9 @@ export const dynamicParams = false;
 - bundle 共享 100kB，每页 ~1kB
 - 月成本 $0（除域名）
 
-## 站点
+## 项目
 
 部署在 https://www.schemato.top  
 开源在 https://github.com/weitaishan/schemato
 
-如果你也在做程序化 SEO 站，特别是开发者向工具类的，欢迎交流——30/60/90 天的关键节点判断，不同细分赛道差别很大，多看几份样本数据有帮助。
+如果你也在做开发者工具、代码生成器，或者类似的矩阵型产品，欢迎交流。这个项目目前还很早期，我更想观察的是：这种"页面就是产品功能"的形态，在 30 / 60 / 90 天会发生什么。

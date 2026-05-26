@@ -14,6 +14,17 @@ export interface ChangelogEntry {
 
 export const ENTRIES: ChangelogEntry[] = [
   {
+    date: "2026-05-26",
+    title: "Search-backed JSON guides",
+    tags: ["docs", "ux"],
+    bullets: [
+      "Published `/guides/json-to-typescript` for the broad `json to typescript` search intent.",
+      "Published `/guides/json-to-go-struct` for the broad `json to go` / `json to go struct` search intent.",
+      "Linked the new guides from the homepage or guide index, matching converter pages, sitemap, and RSS feed.",
+      "Kept JSON → Zod as the next step for runtime validation instead of replacing it.",
+    ],
+  },
+  {
     date: "2026-05-16",
     title: "Guides section is fully populated",
     tags: ["docs"],

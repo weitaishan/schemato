@@ -23,10 +23,24 @@ interface Guide {
 
 const GUIDES: Guide[] = [
   {
+    href: "/guides/json-to-typescript",
+    title: "How to convert JSON to TypeScript types",
+    blurb:
+      "Turn a real API response into TypeScript interfaces, then decide when runtime validation should come next.",
+    status: "published",
+  },
+  {
     href: "/guides/json-to-zod",
     title: "How to convert JSON to a Zod schema",
     blurb:
       "From a raw JSON sample to a validated, typed schema you can reuse in fetch, forms, and tRPC.",
+    status: "published",
+  },
+  {
+    href: "/guides/json-to-go-struct",
+    title: "How to convert JSON to a Go struct",
+    blurb:
+      "Generate Go structs from JSON, then polish pointers, slices, time fields, and json tags.",
     status: "published",
   },
   {

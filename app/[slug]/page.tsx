@@ -25,6 +25,39 @@ function parseSlug(slug: string): { from: FormatId; to: FormatId } | null {
   return null;
 }
 
+const GUIDE_CTA_BY_PAIR: Record<string, { href: string; title: string; body: string }> = {
+  "json:typescript": {
+    href: "/guides/json-to-typescript",
+    title: "Turning one JSON sample into maintainable TypeScript?",
+    body: "Use the guide to review optional fields, nested objects, arrays, and when to add Zod validation.",
+  },
+  "json:zod": {
+    href: "/guides/json-to-zod",
+    title: "Need runtime validation, not just generated code?",
+    body: "Read the full JSON to Zod workflow for fetch responses, forms, and tRPC inputs.",
+  },
+  "json:go-struct": {
+    href: "/guides/json-to-go-struct",
+    title: "Turning JSON into production Go structs?",
+    body: "Use the guide to review pointer fields, nested structs, slices, time values, and json tags.",
+  },
+  "json-schema:pydantic": {
+    href: "/guides/json-schema-to-pydantic",
+    title: "Using this with FastAPI?",
+    body: "Walk through required fields, unions, and strict Pydantic v2 models before wiring the result into an endpoint.",
+  },
+  "openapi:typescript": {
+    href: "/guides/openapi-to-typescript",
+    title: "Only need types from an OpenAPI spec?",
+    body: "Use the guide to extract the schema you need without adding a full client generator.",
+  },
+  "sql:go-struct": {
+    href: "/guides/sql-to-go-struct",
+    title: "Turning database rows into Go structs?",
+    body: "Follow the guide for json tags, database/sql scanning, and the places you still need to hand-tune.",
+  },
+};
+
 export async function generateStaticParams() {
   return allConversions().map((c) => ({
     slug: `${FORMATS[c.from].slug}-to-${FORMATS[c.to].slug}`,
@@ -79,6 +112,7 @@ export default async function ConverterPage({ params }: RouteParams) {
   const seo = buildSeoCopy(pair.from, pair.to);
   const url = `${SITE.url}${pathFor(pair.from, pair.to)}`;
   const nextSteps = nextStepsFor(pair.to);
+  const guideCta = GUIDE_CTA_BY_PAIR[`${pair.from}:${pair.to}`];
 
   // 推荐 8 个相关转换
   const related = [
@@ -155,6 +189,23 @@ export default async function ConverterPage({ params }: RouteParams) {
         <h1 className="text-3xl md:text-4xl font-bold tracking-tight">{seo.h1}</h1>
         <p className="text-dim mt-2 text-lg">{seo.subhead}</p>
       </header>
+
+      {guideCta && (
+        <aside className="card mb-6 px-4 py-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <div className="text-sm font-semibold">{guideCta.title}</div>
+            <p className="text-sm text-dim mt-1">{guideCta.body}</p>
+          </div>
+          <TrackedLink
+            href={guideCta.href}
+            event="click_converter_guide"
+            params={{ from: pair.from, to: pair.to }}
+            className="btn-ghost shrink-0"
+          >
+            Read guide
+          </TrackedLink>
+        </aside>
+      )}
 
       <ConverterShell from={from} to={to} initialSample={from.sample} available={available} />
 

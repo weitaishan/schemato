@@ -23,6 +23,36 @@ export default function HomePage() {
     href: pathFor(c.from, c.to),
     live: hasConverter(c.from, c.to),
   }));
+  const starterConverters = [
+    {
+      href: "/json-to-typescript",
+      title: "JSON -> TypeScript",
+      label: "Most searched starting point",
+      detail: "Turn API responses and fixtures into interfaces before choosing validation.",
+      event: "json_to_typescript",
+    },
+    {
+      href: "/json-to-zod",
+      title: "JSON -> Zod",
+      label: "Runtime validation",
+      detail: "Use Zod validation for API responses, forms, env vars, and tRPC inputs.",
+      event: "json_to_zod",
+    },
+    {
+      href: "/json-to-go-struct",
+      title: "JSON -> Go struct",
+      label: "Go API DTOs",
+      detail: "A direct path for the JSON to Go / JSON to Go struct search intent.",
+      event: "json_to_go_struct",
+    },
+    {
+      href: "/openapi-to-typescript",
+      title: "OpenAPI -> TypeScript",
+      label: "Spec to types",
+      detail: "Extract clean types from a spec without setting up a full client generator.",
+      event: "openapi_to_typescript",
+    },
+  ];
 
   return (
     <div className="container-x py-16">
@@ -38,14 +68,22 @@ export default function HomePage() {
           Prisma or TypeScript sample. Get TypeScript, Zod, Pydantic, Go, Rust,
           Swift, Kotlin, and more — generated entirely in your browser.
         </p>
-        <div className="mt-6 flex gap-3">
+        <div className="mt-6 flex flex-wrap gap-3">
+          <TrackedLink
+            href="/json-to-typescript"
+            event="click_hero_cta"
+            params={{ cta: "json_to_typescript" }}
+            className="btn-primary"
+          >
+            Try JSON → TypeScript
+          </TrackedLink>
           <TrackedLink
             href="/json-to-zod"
             event="click_hero_cta"
             params={{ cta: "json_to_zod" }}
-            className="btn-primary"
+            className="btn-ghost"
           >
-            Try JSON → Zod
+            JSON → Zod
           </TrackedLink>
           <TrackedLink
             href="#converters"
@@ -63,6 +101,33 @@ export default function HomePage() {
           >
             Changelog
           </TrackedLink>
+        </div>
+      </section>
+
+      <section className="mt-12">
+        <div className="flex items-baseline justify-between gap-4 flex-wrap">
+          <div>
+            <p className="text-dim text-sm uppercase tracking-widest">Start here</p>
+            <h2 className="text-2xl font-bold mt-1">Search-backed starting points</h2>
+          </div>
+          <p className="text-sm text-dim max-w-xl">
+            Google Trends points to these broader developer tasks before the narrower long-tail converters.
+          </p>
+        </div>
+        <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          {starterConverters.map((c) => (
+            <TrackedLink
+              key={c.href}
+              href={c.href}
+              event="click_starter_converter"
+              params={{ converter: c.event }}
+              className="card p-4 hover:border-accent transition block"
+            >
+              <div className="text-sm text-accent font-medium">{c.label}</div>
+              <div className="font-semibold mt-1">{c.title}</div>
+              <p className="text-dim text-sm mt-2 leading-relaxed">{c.detail}</p>
+            </TrackedLink>
+          ))}
         </div>
       </section>
 
@@ -197,6 +262,17 @@ export default function HomePage() {
         </p>
         <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3">
           <TrackedLink
+            href="/guides/json-to-typescript"
+            event="click_guide_from_home"
+            params={{ slug: "json-to-typescript" }}
+            className="card p-4 hover:border-accent transition block"
+          >
+            <div className="font-semibold">How to convert JSON to TypeScript types</div>
+            <p className="text-dim text-sm mt-1">
+              Turn a real API response into interfaces, then decide when runtime validation should come next.
+            </p>
+          </TrackedLink>
+          <TrackedLink
             href="/guides/json-to-zod"
             event="click_guide_from_home"
             params={{ slug: "json-to-zod" }}
@@ -208,14 +284,14 @@ export default function HomePage() {
             </p>
           </TrackedLink>
           <TrackedLink
-            href="/guides/json-schema-to-pydantic"
+            href="/guides/json-to-go-struct"
             event="click_guide_from_home"
-            params={{ slug: "json-schema-to-pydantic" }}
+            params={{ slug: "json-to-go-struct" }}
             className="card p-4 hover:border-accent transition block"
           >
-            <div className="font-semibold">JSON Schema → Pydantic v2 (FastAPI)</div>
+            <div className="font-semibold">How to convert JSON to a Go struct</div>
             <p className="text-dim text-sm mt-1">
-              Walk $ref, required, oneOf into Pydantic models you can drop straight into FastAPI handlers.
+              Generate Go structs from JSON, then polish pointers, slices, time fields, and json tags.
             </p>
           </TrackedLink>
         </div>

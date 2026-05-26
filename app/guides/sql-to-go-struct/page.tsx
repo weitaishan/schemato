@@ -233,6 +233,10 @@ export default function GuideSqlToGoStruct() {
             <div className="text-sm font-medium">SQL → Go struct converter</div>
             <div className="text-xs text-mute">The tool used in this guide</div>
           </a>
+          <a href="/json-to-go-struct" className="card px-3 py-3 hover:border-accent">
+            <div className="text-sm font-medium">JSON → Go struct</div>
+            <div className="text-xs text-mute">For JSON to Go / JSON to Go struct workflows</div>
+          </a>
           <a href="/sql-to-rust-struct" className="card px-3 py-3 hover:border-accent">
             <div className="text-sm font-medium">SQL → Rust struct (sqlx)</div>
             <div className="text-xs text-mute">For Rust services on Postgres</div>

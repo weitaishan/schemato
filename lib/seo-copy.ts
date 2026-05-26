@@ -232,7 +232,7 @@ export function buildSeoCopy(from: FormatId, to: FormatId): SeoCopy {
   const pitfalls = PITFALLS_BY_TARGET[to] ?? PITFALLS_DEFAULT;
 
   // 默认 intro
-  const defaultIntro = `This free tool converts ${f.name} into ${t.name}. ${f.blurb} ${t.blurb} The conversion runs entirely client-side: nothing is uploaded, nothing is logged. Useful when you want to skip writing types by hand for an API response, a database row, or a config payload.`;
+  const defaultIntro = `This free tool converts ${f.name} into ${t.name}. ${f.blurb} ${t.blurb} The conversion runs entirely client-side: your input is not uploaded or logged. Useful when you want to skip writing types by hand for an API response, a database row, or a config payload.`;
   const intro = SCENARIO_INTROS[key] ?? defaultIntro;
 
   return {

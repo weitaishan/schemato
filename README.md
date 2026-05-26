@@ -13,7 +13,17 @@ Inputs: JSON, JSON Schema, OpenAPI 3.x, GraphQL SDL, SQL DDL, Protobuf, Prisma, 
 
 Outputs: TypeScript, Zod, Pydantic, Go, Rust, Swift, Kotlin, Java, C#, Dart, PHP, Ruby, Yup, Joi, and Python dataclass.
 
-Conversion runs **100% in your browser**. No data is uploaded. No signup. No API costs.
+Conversion runs **100% in your browser**. No conversion payloads are uploaded. No signup. No API costs.
+
+---
+
+## Try the main paths
+
+- [JSON -> Zod](https://www.schemato.top/json-to-zod) for TypeScript runtime validation
+- [JSON Schema -> Pydantic](https://www.schemato.top/json-schema-to-pydantic) for FastAPI models
+- [GraphQL -> TypeScript](https://www.schemato.top/graphql-to-typescript) for SDL-backed interfaces
+- [SQL DDL -> Go struct](https://www.schemato.top/sql-to-go-struct) for json-tagged DTOs
+- [Schemato vs quicktype](https://www.schemato.top/compare/quicktype) for a feature comparison
 
 ---
 
@@ -48,6 +58,26 @@ output: "export" → fully static, deploys anywhere
 Custom JSON-shape inferrer (~150 LOC, no quicktype dependency)
 Input parsers → shared Shape model → per-language renderers
 ```
+
+---
+
+## Architecture
+
+Instead of writing one adapter per conversion pair, Schemato uses a small intermediate `Shape` model:
+
+```mermaid
+flowchart LR
+  A["Input text<br/>JSON / OpenAPI / GraphQL / SQL / ..."] --> B["Parser<br/>one per input format"]
+  B --> C["Shape<br/>small shared contract"]
+  C --> D["Renderer<br/>one per output language"]
+  D --> E["Generated code<br/>Zod / Pydantic / Go / Rust / ..."]
+```
+
+That keeps the project linear:
+
+- New input format: write one parser, get every output language.
+- New output language: write one renderer, get every input format.
+- New converter page: generated automatically from the format registry.
 
 ---
 

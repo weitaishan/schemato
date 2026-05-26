@@ -26,6 +26,13 @@ export default function ConverterShell({ from, to, initialSample, available }: P
   const [copied, setCopied] = useState(false);
   const [edited, setEdited] = useState(false);
   const [reportedSuccess, setReportedSuccess] = useState(false);
+  const [pageUrl, setPageUrl] = useState("");
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setPageUrl(window.location.href);
+    }
+  }, []);
 
   // 切换样例：刷新输入区
   useEffect(() => {
@@ -79,9 +86,46 @@ export default function ConverterShell({ from, to, initialSample, available }: P
   }, [input, from.id, to.id, available, reportedSuccess]);
 
   const placeholderOutput = useMemo(() => to.sample, [to]);
+  const issueUrl = useMemo(() => {
+    const title = encodeURIComponent(`Improve ${from.name} to ${to.name} conversion`);
+    const body = encodeURIComponent(
+      [
+        `Converter: ${from.name} -> ${to.name}`,
+        `Page: ${pageUrl || "current converter page"}`,
+        "",
+        "What input did you paste?",
+        "",
+        "```",
+        "",
+        "```",
+        "",
+        "What output did you expect?",
+        "",
+        "```",
+        "",
+        "```",
+      ].join("\n"),
+    );
+    return `https://github.com/weitaishan/schemato/issues/new?title=${title}&body=${body}`;
+  }, [from.name, pageUrl, to.name]);
 
   return (
     <div className="card p-0 overflow-hidden">
+      <div className="px-4 py-3 border-b border-border bg-panel2 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+        <div className="text-sm text-dim">
+          Runs locally in your browser. Nothing you paste is uploaded to a conversion API.
+        </div>
+        <a
+          href={issueUrl}
+          target="_blank"
+          rel="noreferrer"
+          onClick={() => events.clickBugLink("bug")}
+          className="text-sm text-accent hover:underline shrink-0"
+        >
+          Report output issue
+        </a>
+      </div>
+
       {/* 样例切换条 */}
       {samples.length > 1 && (
         <div className="px-4 py-3 border-b border-border bg-panel2">
@@ -172,7 +216,7 @@ export default function ConverterShell({ from, to, initialSample, available }: P
                 }
               }}
             >
-              {copied ? "Copied" : "Copy"}
+              {copied ? "Copied" : "Copy output"}
             </button>
           </div>
           <pre className="w-full h-[420px] bg-panel2 border border-border rounded-lg p-3 code-pre">

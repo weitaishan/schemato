@@ -1,13 +1,13 @@
 ---
-title: How I built a 150-page programmatic SEO site with Next.js static export and zero AI content
+title: How I built 149 statically generated tool pages with Next.js
 published: false
-description: A practical write-up on building a developer tool site that ships ~150 pages, each with a real working tool, using Next.js static export. No backend, no API costs, no AI-generated filler.
+description: A practical write-up on building a developer tool site with 149 working conversion pages, each statically generated with Next.js export. No backend, no API costs, no placeholder pages.
 tags: nextjs, typescript, seo, opensource
 canonical_url:
 cover_image:
 ---
 
-> Disclosure: I built this site myself — it's open source. I'll link it once, at the end. The write-up is the focus, not the link.
+> Disclosure: I built the site discussed here. It's open source, and I'll link it once at the end. The write-up is about the architecture, not the launch.
 
 ## The problem
 
@@ -19,15 +19,15 @@ I work across TypeScript, Go, and Python, and at least once a week I do this dan
 4. Get the optionality slightly wrong somewhere.
 5. Find out at runtime.
 
-Tools like quicktype solve part of this, but only for a few output languages, and they often want you to install something. I wanted a single web page per conversion — JSON to Zod, JSON Schema to Pydantic, GraphQL to TypeScript — and I wanted Google to send me users who are searching for exactly that.
+Tools like quicktype solve part of this, but I wanted a slightly different shape: one working web page per conversion — JSON to Zod, JSON Schema to Pydantic, GraphQL to TypeScript — with no install step and no server-side conversion.
 
-That's a programmatic SEO site, the kind people built by the thousand in 2022. The 2026 version of the playbook is interesting because:
+That creates a useful overlap between product architecture and search architecture. The pages exist because the tool needs stable conversion URLs; the SEO benefit is a side effect of making every URL genuinely useful.
 
-- AI content is now actively penalized in Google's ranking, not just ignored.
+- Thin generated content is a bad bargain; pages need to do real work.
 - Static export + edge CDNs make hosting effectively free at this size.
-- LLMs make writing the per-page conversion logic far cheaper than it used to be.
+- LLMs can speed up boring implementation work, but the product still needs a real abstraction underneath.
 
-Below is the architecture I landed on. The whole thing is ~3,000 LOC, deploys in 30 seconds on Vercel free tier, and ships ~150 distinct, statically generated pages.
+Below is the architecture I landed on. The whole thing is ~3,000 LOC, deploys in about 30 seconds on Vercel's free tier, and ships 149 distinct, statically generated tool pages.
 
 ## The matrix
 
@@ -181,7 +181,7 @@ A specific intro reads:
 
 > "Most front-end engineers reach for this conversion when integrating a third-party API and the docs don't ship type definitions. Paste a real response and you get an interface that exactly matches the data on the wire — no Postman copy-paste, no manual typing, no drift."
 
-The second one mentions a real workflow, a real pain, and gives Google something to match against long-tail searches. I wrote 30 such intros for the most-searched pairs by hand. The rest fall back to a sensible template, which is fine — Google ranks pages, not sites, so the manually-written ones will pull weight.
+The second one mentions a real workflow, a real pain, and gives search engines more concrete context than a generic converter page. I wrote 30 such intros for the most-searched pairs by hand. The rest fall back to a sensible template, which is fine — the important pages are the ones most likely to earn attention first.
 
 **3. Each page has a small `HowTo` JSON-LD.**
 
@@ -219,7 +219,7 @@ return [
 
 **5. Multiple per-page samples.**
 
-Each input format has 3–5 real-world samples (User profile, e-commerce order, Stripe-like charge, etc.) that the user can switch between with a single click. This serves three purposes: it makes the tool actually useful, it adds unique structured content to each page, and it increases time-on-page (a real-world signal Google uses).
+Each input format has 3–5 real-world samples (User profile, e-commerce order, Stripe-like charge, etc.) that the user can switch between with a single click. This serves two purposes: it makes the tool actually useful, and it gives each page more concrete examples than a generic converter page usually has.
 
 ## What I'd skip if I were doing it again
 
@@ -231,7 +231,7 @@ A few things turned out to not matter:
 
 A few things I underestimated:
 
-- **The matter of formal content uniqueness.** "Same template, different variables" is exactly what Google's spam filter is tuned to catch. Manual intro writing for the head pages was unavoidable.
+- **The matter of formal content uniqueness.** "Same template, different variables" is not a good page strategy. Manual intro writing for the head pages was unavoidable.
 - **The cost of getting `output: export` to work cleanly.** A few APIs don't work in fully static mode (`opengraph-image.tsx`, ISR, middleware). Find out early.
 - **Picking input formats that share infrastructure.** JSON Schema, OpenAPI, and Avro all share enough structure that a single Shape inferrer covers all three. Picking them together was lucky; in retrospect I'd plan that explicitly.
 
@@ -246,7 +246,7 @@ A few things I underestimated:
 
 ## The site
 
-It's live at <https://www.schemato.top>. The code is at <https://github.com/weitaishan/schemato> if you want to grab the parser/renderer split for your own thing.
+It's live at <https://www.schemato.top>. The code is at <https://github.com/weitaishan/schemato> if you want to look at the parser/renderer split.
 
 Most useful for me personally: paste a JSON response from a third-party API → get a Zod schema I can drop into a tRPC handler. Saves me about 5 minutes per integration. That's basically the whole product.
 

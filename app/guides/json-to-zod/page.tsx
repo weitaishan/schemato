@@ -5,10 +5,11 @@ export const metadata: Metadata = {
   title:
     "How to convert JSON to a Zod schema (with TypeScript types) — step-by-step",
   description:
-    "Practical guide: turn a JSON sample into a Zod schema you can validate at runtime, derive TypeScript types from, and reuse in forms and tRPC. Free tool included.",
+    "Practical guide: turn a JSON sample into a Zod schema for runtime validation, derive TypeScript types, and reuse it in forms and tRPC. Free tool included.",
   keywords: [
     "json to zod",
     "convert json to zod schema",
+    "zod validation",
     "zod from json",
     "json to zod typescript",
     "zod schema generator",
@@ -108,7 +109,7 @@ export default function GuideJsonToZod() {
       { "@type": "HowToStep", position: 1, name: "Get a representative JSON sample", text: "Copy a real response from your API, fixture, or webhook." },
       { "@type": "HowToStep", position: 2, name: "Generate the schema", text: "Paste it into the JSON → Zod converter and copy the output." },
       { "@type": "HowToStep", position: 3, name: "Refine field constraints", text: "Tighten types: positive integers, email format, required min length, default values." },
-      { "@type": "HowToStep", position: 4, name: "Validate API responses", text: "Use schema.parse() at the boundary so bad data fails fast." },
+      { "@type": "HowToStep", position: 4, name: "Add Zod validation at trust boundaries", text: "Use schema.parse() or safeParse() on API responses, form input, env vars, and webhook payloads." },
       { "@type": "HowToStep", position: 5, name: "Reuse for forms and RPC", text: "Plug the same schema into React Hook Form, tRPC inputs, or your test fixtures." },
     ],
   };
@@ -144,7 +145,7 @@ export default function GuideJsonToZod() {
         </h1>
         <p className="text-dim mt-3 text-lg leading-relaxed">
           A 5-minute, copy-paste-friendly walkthrough: from a raw JSON sample to a
-          schema you can validate, type, and reuse in forms and tRPC.
+          schema you can use for Zod validation, TypeScript inference, forms, and tRPC.
         </p>
         <p className="text-mute mt-2 text-sm">
           Need it now? Skip ahead to the{" "}
@@ -194,14 +195,25 @@ export default function GuideJsonToZod() {
         <li>• <code className="text-accent2">.refine(v =&gt; ..., &quot;message&quot;)</code> — custom rules</li>
       </ul>
 
-      <h2 className="text-2xl font-bold mt-12">Step 4 — Validate API responses</h2>
+      <h2 className="text-2xl font-bold mt-12">Step 4 — Add Zod validation at trust boundaries</h2>
       <p className="text-dim mt-2 leading-relaxed">
         The biggest win from a Zod schema is catching shape changes the moment they
-        happen. Use <code className="text-accent2">.parse()</code> when you expect
-        valid data and want to fail loudly, or <code className="text-accent2">.safeParse()</code> when
-        you want to handle the failure inline.
+        cross a boundary you do not fully control. Use{" "}
+        <code className="text-accent2">.parse()</code> when you expect valid data
+        and want to fail loudly, or <code className="text-accent2">.safeParse()</code>{" "}
+        when you want to handle the failure inline.
       </p>
       <pre className="mt-4 bg-panel2 border border-border rounded-lg p-4 code-pre overflow-x-auto">{fetchExample}</pre>
+
+      <div className="card p-4 mt-4">
+        <h3 className="font-semibold">Zod validation checklist</h3>
+        <ul className="mt-2 space-y-2 text-dim text-sm">
+          <li>• Validate values from HTTP APIs, webhooks, forms, env vars, localStorage, and message queues.</li>
+          <li>• Skip validation for values that already came from your own typed functions.</li>
+          <li>• Prefer <code className="text-accent2">safeParse()</code> when the user can recover from bad input.</li>
+          <li>• Prefer <code className="text-accent2">parse()</code> when bad input should stop the request immediately.</li>
+        </ul>
+      </div>
 
       <h2 className="text-2xl font-bold mt-12">Step 5 — Reuse the schema in forms</h2>
       <p className="text-dim mt-2 leading-relaxed">

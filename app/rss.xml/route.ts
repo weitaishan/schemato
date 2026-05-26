@@ -24,6 +24,22 @@ function escape(s: string): string {
 
 const GUIDES_FEED: FeedItem[] = [
   {
+    title: "How to convert JSON to TypeScript types",
+    link: `${SITE.url}/guides/json-to-typescript`,
+    pubDate: new Date("2026-05-26T09:00:00Z"),
+    description:
+      "Turn a JSON sample into TypeScript interfaces, tighten optional fields, handle arrays and nested objects, and know when to add Zod runtime validation.",
+    guid: `${SITE.url}/guides/json-to-typescript`,
+  },
+  {
+    title: "How to convert JSON to a Go struct",
+    link: `${SITE.url}/guides/json-to-go-struct`,
+    pubDate: new Date("2026-05-26T09:30:00Z"),
+    description:
+      "Generate Go structs from JSON, then polish pointers, slices, time fields, and json tags for production APIs.",
+    guid: `${SITE.url}/guides/json-to-go-struct`,
+  },
+  {
     title: "How to convert JSON to a Zod schema",
     link: `${SITE.url}/guides/json-to-zod`,
     pubDate: new Date("2026-05-16T10:00:00Z"),

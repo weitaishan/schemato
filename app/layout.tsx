@@ -112,12 +112,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </Script>
 
         <header className="border-b border-border">
-          <div className="container-x flex items-center justify-between py-4">
+          <div className="container-x flex flex-wrap items-center justify-between gap-3 py-4">
             <a href="/" className="font-bold text-lg tracking-tight">
               <span className="text-accent">{"{ }"}</span>{" "}
               <span>{SITE.name}</span>
             </a>
-            <nav className="flex items-center gap-4 text-sm text-dim">
+            <nav className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-dim">
               <a href="/#converters" className="hover:text-text">All converters</a>
               <a href="/guides" className="hover:text-text">Guides</a>
               <a href="/changelog" className="hover:text-text">Changelog</a>
@@ -139,9 +139,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <footer className="border-t border-border mt-24">
           <div className="container-x py-10 text-sm text-mute flex flex-wrap items-center justify-between gap-3">
             <div>
-              © {new Date().getFullYear()} {SITE.name} · Browser-only, no data leaves your machine.
+              © {new Date().getFullYear()} {SITE.name} · Browser-only conversion. Inputs stay in your browser.
             </div>
-            <div className="flex gap-4">
+            <div className="flex flex-wrap gap-x-4 gap-y-2">
               <a href="/" className="hover:text-text">Home</a>
               <a href="/guides" className="hover:text-text">Guides</a>
               <a href="/changelog" className="hover:text-text">Changelog</a>
