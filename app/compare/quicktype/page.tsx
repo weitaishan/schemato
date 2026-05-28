@@ -4,12 +4,13 @@ import { SITE } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Schemato vs quicktype — feature comparison",
   description:
-    "How Schemato compares to quicktype for converting JSON, JSON Schema, OpenAPI, GraphQL and SQL into TypeScript, Zod, Pydantic, Go, Rust and 10 more languages.",
+    "A practical comparison of Schemato and quicktype: input formats, output targets, CLI support, validation-library output, privacy, and when each tool is the better fit.",
   keywords: [
     "schemato vs quicktype",
     "quicktype alternative",
     "free quicktype alternative",
     "json to zod alternative",
+    "quicktype vs json to zod",
     "browser-only schema converter",
   ],
   alternates: { canonical: `${SITE.url}/compare/quicktype` },
@@ -35,7 +36,7 @@ const ROWS: Row[] = [
     feature: "Input formats",
     schemato:
       "10 (JSON, JSON Schema, OpenAPI 3.x, GraphQL SDL, SQL DDL, Protobuf, Prisma, TypeScript, Mongoose, Avro)",
-    quicktype: "Mainly JSON, JSON Schema, GraphQL, TypeScript",
+    quicktype: "JSON, JSON API URLs, JSON Schema, TypeScript, GraphQL queries",
     highlight: "schemato",
   },
   {
@@ -43,20 +44,20 @@ const ROWS: Row[] = [
     schemato:
       "15 (TS, Zod, Yup, Joi, Pydantic, Python dataclass, Go, Rust, Swift, Kotlin, Java, C#, Dart, PHP, Ruby)",
     quicktype:
-      "20+ (TS, Go, Swift, Kotlin, etc) — but no Zod / Yup / Joi / Pydantic out of the box",
-    highlight: "tie",
+      "20+ (TypeScript, Go, Swift, Kotlin, C#, C++, Elm, Haskell, PHP, and more)",
+    highlight: "quicktype",
   },
   {
     feature: "Zod / Yup / Joi / Pydantic outputs",
     schemato: "Yes, first-class — these are the most-used outputs",
-    quicktype: "No (no Zod, no Pydantic; you need a separate tool)",
+    quicktype: "Not listed as built-in target languages in the official README",
     highlight: "schemato",
   },
   {
     feature: "Runs in browser without install",
     schemato: "Yes — paste-and-go on a per-conversion URL",
-    quicktype: "Web app exists, but most usage is via CLI / VS Code extension",
-    highlight: "schemato",
+    quicktype: "Yes — the official README calls the web app the most complete UI",
+    highlight: "tie",
   },
   {
     feature: "Per-conversion URL (shareable)",
@@ -65,16 +66,16 @@ const ROWS: Row[] = [
     highlight: "schemato",
   },
   {
-    feature: "Real-world sample switcher",
+    feature: "Workflow-specific guides",
     schemato:
-      "Yes — 3-5 hand-picked samples per input format (User profile, e-commerce order, GitHub issue, etc.)",
-    quicktype: "Single default sample",
+      "Yes — guide pages for JSON → Zod, JSON → TypeScript, Go structs, Pydantic, OpenAPI, and SQL",
+    quicktype: "Strong README and CLI examples; less focused on per-conversion walkthrough pages",
     highlight: "schemato",
   },
   {
     feature: "Multi-sample inference (union of N JSONs)",
     schemato: "Not yet — single sample today",
-    quicktype: "Yes — paste several, get a unified type",
+    quicktype: "Yes — the API accepts multiple JSON samples for a desired type",
     highlight: "quicktype",
   },
   {
@@ -91,16 +92,31 @@ const ROWS: Row[] = [
   },
   {
     feature: "Open source",
-    schemato: "MIT, GitHub-hosted — small enough to read in an afternoon",
-    quicktype: "Apache-2.0, large mature codebase",
+    schemato: "MIT, GitHub-hosted, intentionally small",
+    quicktype: "Apache-2.0, mature GitHub project with a large codebase",
     highlight: "tie",
   },
   {
-    feature: "Build-time / browser-only",
-    schemato: "100% browser; static export — no servers, no analytics on inputs",
+    feature: "Sample data privacy",
+    schemato: "Conversions run in the browser; pasted input is not uploaded to a Schemato conversion API",
     quicktype:
-      "Web app sends JSON to backend service for some conversions; CLI is local",
-    highlight: "schemato",
+      "Official README says the web app works offline and does not send sample data over the Internet; CLI is local",
+    highlight: "tie",
+  },
+];
+
+const QUICKTYPE_SOURCES = [
+  {
+    label: "quicktype GitHub README",
+    href: "https://github.com/glideapps/quicktype",
+  },
+  {
+    label: "quicktype web app",
+    href: "https://app.quicktype.io/",
+  },
+  {
+    label: "quicktype npm package",
+    href: "https://www.npmjs.com/package/quicktype",
   },
 ];
 
@@ -144,9 +160,13 @@ export default function ComparePage() {
           Schemato vs quicktype
         </h1>
         <p className="text-dim mt-3 text-lg leading-relaxed max-w-3xl">
-          quicktype is the best-known tool for turning JSON into typed code. Schemato
-          is younger, smaller, and focused on a different shape of problem. Here&apos;s
+          quicktype is one of the best-known tools for generating typed models
+          from JSON-shaped data. Schemato is younger, smaller, and optimized for
+          browser-first validation-library output and per-conversion URLs. Here&apos;s
           where each one wins.
+        </p>
+        <p className="text-mute mt-3 text-sm">
+          Last reviewed: May 28, 2026. Sources are linked at the bottom of the page.
         </p>
       </header>
 
@@ -160,10 +180,14 @@ export default function ComparePage() {
           </li>
           <li>
             • <strong>Use quicktype</strong> when you need merge-multiple-samples
-            inference, a CLI, a VS Code extension, or one of its more exotic
-            output languages (Elm, Flow, Crystal, etc.).
+            inference, a mature CLI, VS Code workflow, runtime serializers, or
+            one of its broader target languages.
           </li>
-          <li>• They&apos;re complementary tools, not strict alternatives.</li>
+          <li>
+            • They&apos;re complementary tools. Schemato is better for validation
+            schemas and browser-first workflows; quicktype is better for mature
+            CLI/library workflows and broad model generation.
+          </li>
         </ul>
       </section>
 
@@ -203,15 +227,18 @@ export default function ComparePage() {
         <h2 className="text-2xl font-bold">When Schemato is the better fit</h2>
         <div className="mt-4 space-y-4 text-dim">
           <p>
-            <strong className="text-text">You write Zod or Pydantic.</strong>{" "}
-            quicktype famously does not target Zod or Pydantic. If you live in
-            those ecosystems, Schemato saves you a second tool.
+            <strong className="text-text">You write Zod, Yup, Joi, or Pydantic.</strong>{" "}
+            quicktype&apos;s official target-language list focuses on model and
+            serializer output. Schemato treats validation libraries as first-class
+            targets, which is useful for forms, API responses, env vars, and tRPC
+            inputs.
           </p>
           <p>
             <strong className="text-text">You start from OpenAPI, SQL, Protobuf
             or Prisma.</strong>{" "}
-            quicktype focuses on JSON-shaped inputs. If your source of truth is a
-            database schema or a service contract, Schemato handles it directly.
+            quicktype covers JSON, JSON Schema, TypeScript, and GraphQL queries.
+            Schemato adds more source formats for teams whose source of truth is
+            a database schema, ORM model, or service contract.
           </p>
           <p>
             <strong className="text-text">You want to paste a URL into your team
@@ -228,7 +255,8 @@ export default function ComparePage() {
           <p>
             <strong className="text-text">You have N samples and want a unified
             type.</strong>{" "}
-            quicktype shines here; Schemato today only takes one sample.
+            quicktype shines here. Schemato today is intentionally simple and
+            only converts one pasted sample at a time.
           </p>
           <p>
             <strong className="text-text">You live in your terminal.</strong>{" "}
@@ -236,11 +264,26 @@ export default function ComparePage() {
             roadmap, not shipped.
           </p>
           <p>
-            <strong className="text-text">You need an exotic output language.</strong>{" "}
-            quicktype targets 20+ languages including Elm, Crystal, Haskell.
-            Schemato sticks to the 15 most-used ones for now.
+            <strong className="text-text">You need broad model generation or
+            serializers.</strong>{" "}
+            quicktype targets more languages and can generate richer model /
+            serializer code. Schemato focuses on the common typed-code and
+            validation-schema outputs developers paste into apps.
           </p>
         </div>
+      </section>
+
+      <section className="mt-12 max-w-3xl">
+        <h2 className="text-2xl font-bold">Privacy and data handling</h2>
+        <p className="text-dim mt-3 leading-relaxed">
+          Both tools can be privacy-friendly. Schemato runs conversions in the
+          browser and does not upload pasted input to a Schemato conversion API.
+          The quicktype README says its web app works offline and does not send
+          sample data over the Internet, and its CLI runs locally. If your payload
+          contains secrets, customer data, private keys, or access tokens, the
+          safest option is still to remove or redact that data before using any
+          generator.
+        </p>
       </section>
 
       <section className="mt-12">
@@ -270,6 +313,28 @@ export default function ComparePage() {
             <div className="text-sm font-medium">Protobuf → Rust</div>
             <div className="text-xs text-mute">Quick prototyping</div>
           </a>
+        </div>
+      </section>
+
+      <section className="mt-12 max-w-3xl">
+        <h2 className="text-2xl font-bold">Source notes</h2>
+        <p className="text-dim mt-3 leading-relaxed">
+          This comparison uses public quicktype materials and Schemato&apos;s
+          current public feature set. If quicktype changes its target list or
+          privacy language, this page should be updated.
+        </p>
+        <div className="mt-4 flex flex-wrap gap-2">
+          {QUICKTYPE_SOURCES.map((source) => (
+            <a
+              key={source.href}
+              href={source.href}
+              className="btn-ghost"
+              target="_blank"
+              rel="noreferrer"
+            >
+              {source.label}
+            </a>
+          ))}
         </div>
       </section>
     </div>
