@@ -11,6 +11,9 @@ export const metadata: Metadata = {
     "convert json to typescript",
     "json to ts",
     "typescript interface generator",
+    "json optional fields typescript",
+    "typescript runtime validation",
+    "json array type inference",
     "json to zod",
   ],
   alternates: { canonical: `${SITE.url}/guides/json-to-typescript` },
@@ -85,6 +88,41 @@ export const User = z.object({
 
 export type User = z.infer<typeof User>;`;
 
+const optionalFieldsExample = `// If this field may be omitted:
+email?: string;
+
+// If the API sends null explicitly:
+email: string | null;
+
+// If both can happen:
+email?: string | null;`;
+
+const emptyArrayExample = `// Empty sample arrays cannot reveal the element type
+const sample = { tags: [] };
+
+// Weak first pass
+interface User {
+  tags: unknown[];
+}
+
+// Tighten it after checking real data
+interface User {
+  tags: string[];
+}`;
+
+const dateExample = `interface Invoice {
+  id: string;
+
+  // JSON sends this as a string, even when it represents a date
+  issuedAt: string;
+}
+
+const issuedAt = new Date(invoice.issuedAt);`;
+
+const assertionExample = `// This only tells TypeScript to trust you.
+// It does not validate the response at runtime.
+const user = (await res.json()) as User;`;
+
 export default function GuideJsonToTypeScript() {
   const howTo = {
     "@context": "https://schema.org",
@@ -111,6 +149,8 @@ export default function GuideJsonToTypeScript() {
       { "@type": "Question", name: "Can one JSON sample identify every optional field?", acceptedAnswer: { "@type": "Answer", text: "No. A sample only proves what appears in that payload. Review API docs or additional samples and mark fields optional where the API can omit them." } },
       { "@type": "Question", name: "What happens with empty arrays?", acceptedAnswer: { "@type": "Answer", text: "Empty arrays cannot reveal their element type. Provide at least one representative item when you want a useful array type." } },
       { "@type": "Question", name: "Can I convert JSON Schema or OpenAPI to TypeScript instead?", acceptedAnswer: { "@type": "Answer", text: "Yes. If you have a formal contract, JSON Schema → TypeScript or OpenAPI → TypeScript is usually better than inferring from one sample." } },
+      { "@type": "Question", name: "Does as User validate JSON at runtime?", acceptedAnswer: { "@type": "Answer", text: "No. A TypeScript assertion only affects the compiler. If the JSON can be malformed, validate it with Zod or another runtime schema library." } },
+      { "@type": "Question", name: "Should JSON dates become Date or string in TypeScript?", acceptedAnswer: { "@type": "Answer", text: "Keep JSON timestamps as string in the generated type unless your code explicitly parses them into Date objects." } },
     ],
   };
 
@@ -223,6 +263,55 @@ export default function GuideJsonToTypeScript() {
         </li>
       </ul>
 
+      <h2 className="text-2xl font-bold mt-12">Troubleshooting generated TypeScript types</h2>
+      <p className="text-dim mt-2 leading-relaxed">
+        TypeScript types generated from JSON are only as complete as the sample.
+        Before using them as an API contract, check the cases that a single
+        payload cannot prove.
+      </p>
+
+      <div className="mt-4 space-y-4">
+        <div className="card p-4">
+          <h3 className="font-semibold">Optional, nullable, or both?</h3>
+          <p className="text-dim mt-2 leading-relaxed">
+            A missing field and a field set to{" "}
+            <code className="text-accent2">null</code> mean different things in
+            TypeScript. Compare the generated type against API docs, production
+            fixtures, or more than one response sample.
+          </p>
+          <pre className="mt-3 bg-panel2 border border-border rounded-lg p-3 code-pre overflow-x-auto">{optionalFieldsExample}</pre>
+        </div>
+
+        <div className="card p-4">
+          <h3 className="font-semibold">Empty arrays need real examples</h3>
+          <p className="text-dim mt-2 leading-relaxed">
+            If an array is empty in the sample, the converter cannot infer the
+            element shape. Paste a payload with at least one item, or tighten the
+            generated type by hand.
+          </p>
+          <pre className="mt-3 bg-panel2 border border-border rounded-lg p-3 code-pre overflow-x-auto">{emptyArrayExample}</pre>
+        </div>
+
+        <div className="card p-4">
+          <h3 className="font-semibold">Dates are strings over the wire</h3>
+          <p className="text-dim mt-2 leading-relaxed">
+            JSON has no native date type. Keep timestamps as strings in boundary
+            types, then parse them where your app needs date operations.
+          </p>
+          <pre className="mt-3 bg-panel2 border border-border rounded-lg p-3 code-pre overflow-x-auto">{dateExample}</pre>
+        </div>
+
+        <div className="card p-4">
+          <h3 className="font-semibold">Type assertions are not validation</h3>
+          <p className="text-dim mt-2 leading-relaxed">
+            <code className="text-accent2">as User</code> can make the compiler
+            quiet, but it cannot catch a broken API response. Use it only when
+            you trust the source; otherwise upgrade the boundary to Zod.
+          </p>
+          <pre className="mt-3 bg-panel2 border border-border rounded-lg p-3 code-pre overflow-x-auto">{assertionExample}</pre>
+        </div>
+      </div>
+
       <h2 className="text-2xl font-bold mt-12">FAQ</h2>
       <div className="mt-4 space-y-4">
         <div className="card p-4">
@@ -251,6 +340,22 @@ export default function GuideJsonToTypeScript() {
               OpenAPI → TypeScript
             </a>{" "}
             instead of inferring from a single sample.
+          </p>
+        </div>
+        <div className="card p-4">
+          <div className="font-semibold">Does as User validate JSON at runtime?</div>
+          <p className="text-dim mt-1">
+            No. It only tells TypeScript to trust the value. If the JSON comes
+            from an API, form, webhook, localStorage, or env var, validate it
+            with Zod or another runtime schema.
+          </p>
+        </div>
+        <div className="card p-4">
+          <div className="font-semibold">Should JSON dates become Date or string?</div>
+          <p className="text-dim mt-1">
+            Use <code className="text-accent2">string</code> for the boundary
+            type. Parse into <code className="text-accent2">Date</code> only
+            after the JSON has entered your application code.
           </p>
         </div>
       </div>
