@@ -11,6 +11,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const corePages: MetadataRoute.Sitemap = [
     { url: `${SITE.url}/`, lastModified: now, changeFrequency: "weekly", priority: 1.0 },
+    { url: `${SITE.url}/about`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
+    { url: `${SITE.url}/privacy`, lastModified: now, changeFrequency: "yearly", priority: 0.4 },
+    { url: `${SITE.url}/terms`, lastModified: now, changeFrequency: "yearly", priority: 0.4 },
+    { url: `${SITE.url}/contact`, lastModified: now, changeFrequency: "monthly", priority: 0.5 },
     { url: `${SITE.url}/changelog`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
     { url: `${SITE.url}/compare/quicktype`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: `${SITE.url}/compare/json2ts`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },

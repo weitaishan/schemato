@@ -143,8 +143,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </div>
             <div className="flex flex-wrap gap-x-4 gap-y-2">
               <a href="/" className="hover:text-text">Home</a>
+              <a href="/about" className="hover:text-text">About</a>
               <a href="/guides" className="hover:text-text">Guides</a>
               <a href="/changelog" className="hover:text-text">Changelog</a>
+              <a href="/privacy" className="hover:text-text">Privacy</a>
+              <a href="/terms" className="hover:text-text">Terms</a>
+              <a href="/contact" className="hover:text-text">Contact</a>
               <a href="/compare/quicktype" className="hover:text-text">vs quicktype</a>
               <a href="/compare/json2ts" className="hover:text-text">vs json2ts</a>
               <a href="/sitemap.xml" className="hover:text-text">Sitemap</a>
