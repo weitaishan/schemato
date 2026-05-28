@@ -13,6 +13,8 @@ export const metadata: Metadata = {
     "zod from json",
     "json to zod typescript",
     "zod schema generator",
+    "zod optional nullable",
+    "zod troubleshooting",
     "react hook form zod",
     "trpc zod input",
   ],
@@ -95,6 +97,23 @@ export const userRouter = router({
     }),
 });`;
 
+const nullableExample = `// Generated from a sample where email was null
+email: z.string().nullable()
+
+// Use this when the API may omit email entirely
+email: z.string().email().optional()
+
+// Use this when the API may send null or omit the field
+email: z.string().email().nullable().optional()`;
+
+const coercionExample = `const User = z.object({
+  // Useful when a form field sends "42" as a string
+  id: z.coerce.number().int().positive(),
+
+  // Keep API timestamps as strings unless your app needs Date objects
+  createdAt: z.string().datetime(),
+});`;
+
 export default function GuideJsonToZod() {
   // HowTo + FAQ JSON-LD
   const howTo = {
@@ -122,6 +141,8 @@ export default function GuideJsonToZod() {
       { "@type": "Question", name: "Will the schema include all my optional fields correctly?", acceptedAnswer: { "@type": "Answer", text: "Optional flags are inferred from the sample: a field is optional if its value is null. Real APIs often have more optional fields than a single sample reveals — review and add .optional() where appropriate." } },
       { "@type": "Question", name: "Should I use Zod or just TypeScript types?", acceptedAnswer: { "@type": "Answer", text: "Use Zod when you need runtime validation (parsing API responses, form inputs, env vars). Use plain TypeScript when the value already comes from a trusted, statically-typed source." } },
       { "@type": "Question", name: "Can I generate Zod from JSON Schema or OpenAPI instead?", acceptedAnswer: { "@type": "Answer", text: "Yes. Schemato has converters for JSON Schema → Zod and OpenAPI → Zod that handle $ref, oneOf, and required arrays." } },
+      { "@type": "Question", name: "What is the difference between optional and nullable in Zod?", acceptedAnswer: { "@type": "Answer", text: ".optional() means the field may be missing or undefined. .nullable() means the field may be explicitly null. Some APIs need both." } },
+      { "@type": "Question", name: "Why does my generated schema use z.unknown()?", acceptedAnswer: { "@type": "Answer", text: "The most common reason is an empty array or a mixed array where one sample cannot prove a stable element type. Add a representative array item and regenerate." } },
     ],
   };
 
@@ -258,6 +279,58 @@ export default function GuideJsonToZod() {
         </li>
       </ul>
 
+      <h2 className="text-2xl font-bold mt-12">Troubleshooting generated Zod schemas</h2>
+      <p className="text-dim mt-2 leading-relaxed">
+        A generated schema is a strong first pass, but runtime validation gets
+        strict quickly. These are the places developers most often need to edit
+        the output before shipping it.
+      </p>
+
+      <div className="mt-4 space-y-4">
+        <div className="card p-4">
+          <h3 className="font-semibold">Optional vs nullable fields</h3>
+          <p className="text-dim mt-2 leading-relaxed">
+            JSON samples only show the value you pasted. If a field appears as{" "}
+            <code className="text-accent2">null</code>, the generator can mark it
+            nullable, but it cannot know whether the API may also omit that field.
+          </p>
+          <pre className="mt-3 bg-panel2 border border-border rounded-lg p-3 code-pre overflow-x-auto">{nullableExample}</pre>
+        </div>
+
+        <div className="card p-4">
+          <h3 className="font-semibold">Numbers that arrive as strings</h3>
+          <p className="text-dim mt-2 leading-relaxed">
+            Browser forms, query strings, CSV imports, and some APIs send numbers
+            as strings. Use coercion only at input boundaries where you expect
+            that shape; keep internal data strict.
+          </p>
+          <pre className="mt-3 bg-panel2 border border-border rounded-lg p-3 code-pre overflow-x-auto">{coercionExample}</pre>
+        </div>
+
+        <div className="card p-4">
+          <h3 className="font-semibold">Empty arrays and mixed arrays</h3>
+          <p className="text-dim mt-2 leading-relaxed">
+            Empty arrays usually become{" "}
+            <code className="text-accent2">z.array(z.unknown())</code> because
+            there is no element to inspect. Mixed arrays may also need manual
+            review: decide whether the API really allows multiple shapes or
+            whether your sample is combining unrelated data.
+          </p>
+        </div>
+
+        <div className="card p-4">
+          <h3 className="font-semibold">Dates, IDs, and enums</h3>
+          <p className="text-dim mt-2 leading-relaxed">
+            JSON has strings, numbers, booleans, arrays, objects, and null. It
+            does not have native dates, UUIDs, or enums. Add{" "}
+            <code className="text-accent2">.datetime()</code>,{" "}
+            <code className="text-accent2">.uuid()</code>, or{" "}
+            <code className="text-accent2">z.enum([...])</code> after generation
+            when your domain requires tighter validation.
+          </p>
+        </div>
+      </div>
+
       <h2 className="text-2xl font-bold mt-12">FAQ</h2>
       <div className="mt-4 space-y-4">
         <div className="card p-4">
@@ -288,6 +361,22 @@ export default function GuideJsonToZod() {
             <a className="text-accent hover:underline" href="/json-schema-to-zod">JSON Schema → Zod</a>{" "}
             or{" "}
             <a className="text-accent hover:underline" href="/openapi-to-zod">OpenAPI → Zod</a>.
+          </p>
+        </div>
+        <div className="card p-4">
+          <div className="font-semibold">What is the difference between optional and nullable?</div>
+          <p className="text-dim mt-1">
+            <code className="text-accent2">.optional()</code> means the field may
+            be missing or undefined. <code className="text-accent2">.nullable()</code>{" "}
+            means the field may be explicitly null. Some API responses need both.
+          </p>
+        </div>
+        <div className="card p-4">
+          <div className="font-semibold">Why does the output include z.unknown()?</div>
+          <p className="text-dim mt-1">
+            Usually because the sample has an empty array or a mixed value that
+            cannot prove a stable type. Paste a more representative sample, then
+            tighten the generated schema by hand where needed.
           </p>
         </div>
       </div>
