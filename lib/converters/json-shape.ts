@@ -38,8 +38,8 @@ function pascalCase(s: string): string {
     .join("") || "Root";
 }
 
-/** 合并两个 shape，得到能容纳两者的最小 shape（用于数组元素的合并/可选字段） */
-function mergeShape(a: Shape, b: Shape): Shape {
+/** 合并两个 shape，得到能容纳两者的最小 shape（用于数组元素的合并/可选字段/多样本推断） */
+export function mergeShape(a: Shape, b: Shape): Shape {
   if (a.kind === b.kind) {
     if (a.kind === "object" && b.kind === "object") {
       const fields: Record<string, { shape: Shape; optional: boolean }> = {};
@@ -143,4 +143,47 @@ export function parseJsonSafe(input: string): { ok: true; value: unknown } | { o
   } catch (e) {
     return { ok: false, error: (e as Error).message };
   }
+}
+
+function parseJsonLines(input: string): { ok: true; values: unknown[] } | { ok: false; error: string } {
+  const lines = input
+    .split(/\r?\n/)
+    .map((line) => line.trim())
+    .filter(Boolean);
+
+  if (lines.length < 2) {
+    return { ok: false, error: "Expected at least two JSON lines." };
+  }
+
+  const values: unknown[] = [];
+  for (let i = 0; i < lines.length; i++) {
+    try {
+      values.push(JSON.parse(lines[i]));
+    } catch (e) {
+      return { ok: false, error: `Line ${i + 1}: ${(e as Error).message}` };
+    }
+  }
+  return { ok: true, values };
+}
+
+export function inferShapeFromJsonInput(
+  input: string,
+  name = "Root",
+): { ok: true; shape: Shape; sampleCount: number } | { ok: false; error: string } {
+  const single = parseJsonSafe(input);
+  if (single.ok) {
+    return { ok: true, shape: inferShape(single.value, name), sampleCount: 1 };
+  }
+  const singleError = single.error;
+
+  const lines = parseJsonLines(input);
+  if (lines.ok === false) {
+    return { ok: false, error: lines.error.startsWith("Expected") ? singleError : lines.error };
+  }
+
+  let shape = inferShape(lines.values[0], name);
+  for (let i = 1; i < lines.values.length; i++) {
+    shape = mergeShape(shape, inferShape(lines.values[i], name));
+  }
+  return { ok: true, shape, sampleCount: lines.values.length };
 }

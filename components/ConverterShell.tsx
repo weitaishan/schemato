@@ -86,6 +86,10 @@ export default function ConverterShell({ from, to, initialSample, available }: P
   }, [input, from.id, to.id, available, reportedSuccess]);
 
   const placeholderOutput = useMemo(() => to.sample, [to]);
+  const jsonInputTip =
+    from.id === "json"
+      ? "Tip: paste one JSON value, a JSON array, or NDJSON samples to infer optional fields."
+      : null;
   const issueUrl = useMemo(() => {
     const title = encodeURIComponent(`Improve ${from.name} to ${to.name} conversion`);
     const body = encodeURIComponent(
@@ -179,6 +183,7 @@ export default function ConverterShell({ from, to, initialSample, available }: P
               Reset
             </button>
           </div>
+          {jsonInputTip && <p className="text-xs text-mute mb-2">{jsonInputTip}</p>}
           <textarea
             value={input}
             onChange={(e) => {

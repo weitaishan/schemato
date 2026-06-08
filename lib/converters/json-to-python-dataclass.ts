@@ -1,5 +1,5 @@
 import type { ConvertFn, ConvertResult } from "./index";
-import { collectNamedTypes, inferShape, parseJsonSafe, type Shape } from "./json-shape";
+import { collectNamedTypes, inferShapeFromJsonInput, type Shape } from "./json-shape";
 
 function pyType(shape: Shape): string {
   switch (shape.kind) {
@@ -19,11 +19,11 @@ function pyType(shape: Shape): string {
 }
 
 export const jsonToPythonDataclass: ConvertFn = (input, opts): ConvertResult => {
-  const parsed = parseJsonSafe(input);
-  if (!parsed.ok) return { ok: false, code: "", error: `Invalid JSON: ${parsed.error}` };
-
   const rootName = opts?.rootName ?? "Root";
-  const root = inferShape(parsed.value, rootName);
+  const inferred = inferShapeFromJsonInput(input, rootName);
+  if (inferred.ok === false) return { ok: false, code: "", error: `Invalid JSON: ${inferred.error}` };
+
+  const root = inferred.shape;
 
   if (root.kind !== "object" && root.kind !== "array") {
     return { ok: true, code: `# ${rootName} = ${pyType(root)}` };

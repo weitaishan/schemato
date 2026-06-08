@@ -15,6 +15,16 @@ export interface ChangelogEntry {
 export const ENTRIES: ChangelogEntry[] = [
   {
     date: "2026-06-08",
+    title: "Multi-sample JSON inference",
+    tags: ["feat", "ux"],
+    bullets: [
+      "JSON converters now accept newline-delimited JSON samples and merge them into one shared shape.",
+      "Fields missing from some samples are emitted as optional across TypeScript, Zod, Go, Pydantic, Rust, Swift, Kotlin, Java, C#, Dart, PHP, Ruby, Yup, Joi, and dataclass outputs.",
+      "Single JSON values and normal formatted JSON still behave as before.",
+    ],
+  },
+  {
+    date: "2026-06-08",
     title: "Comparison pages for developer-tool discovery",
     tags: ["docs"],
     bullets: [
@@ -170,11 +180,11 @@ export const ROADMAP: Array<{ status: "shipped" | "doing" | "next" | "later"; te
   { status: "shipped", text: "All 10 input formats live (JSON, JSON Schema, OpenAPI, GraphQL, SQL, Protobuf, Prisma, TypeScript, Mongoose, Avro)" },
   { status: "shipped", text: "All 15 output languages live (TS, Zod, Yup, Joi, Pydantic, dataclass, Go, Rust, Swift, Kotlin, Java, C#, Dart, PHP, Ruby)" },
   { status: "shipped", text: "Per-input multi-sample tabs" },
+  { status: "shipped", text: "Multi-sample JSON inference: paste several JSON samples, get a unified type" },
   { status: "shipped", text: "Scenario-specific SEO copy for the most-searched 30+ pairs" },
   { status: "doing", text: "Awesome-list submissions for high-quality backlinks" },
   { status: "doing", text: "Watching Google Search Console for the first impressions to roll in" },
   { status: "next", text: "Discriminated unions for `oneOf` JSON Schema" },
-  { status: "next", text: "Multi-sample inference: paste several JSON shapes, get a unified type" },
   { status: "next", text: "Copy-as-curl button for API testing flows" },
   { status: "later", text: "CLI: `npx schemato json-to-zod < schema.json`" },
   { status: "later", text: "VS Code extension: select JSON, run `Convert to Zod`" },

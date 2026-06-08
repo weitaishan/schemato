@@ -1,16 +1,16 @@
 import type { ConvertFn, ConvertResult } from "./index";
-import { collectNamedTypes, inferShape, parseJsonSafe, type Shape } from "./json-shape";
+import { collectNamedTypes, inferShapeFromJsonInput, type Shape } from "./json-shape";
 
 function snakeCase(s: string): string {
   return s.replace(/([A-Z])/g, "_$1").toLowerCase().replace(/^_/, "");
 }
 
 export const jsonToRuby: ConvertFn = (input, opts): ConvertResult => {
-  const parsed = parseJsonSafe(input);
-  if (!parsed.ok) return { ok: false, code: "", error: `Invalid JSON: ${parsed.error}` };
-
   const rootName = opts?.rootName ?? "Root";
-  const root = inferShape(parsed.value, rootName);
+  const inferred = inferShapeFromJsonInput(input, rootName);
+  if (inferred.ok === false) return { ok: false, code: "", error: `Invalid JSON: ${inferred.error}` };
+
+  const root = inferred.shape;
 
   if (root.kind !== "object" && root.kind !== "array") {
     return { ok: true, code: `# ${rootName} is a simple ${root.kind}` };

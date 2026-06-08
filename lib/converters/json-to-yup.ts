@@ -1,5 +1,5 @@
 import type { ConvertFn, ConvertResult } from "./index";
-import { collectNamedTypes, inferShape, parseJsonSafe, type Shape } from "./json-shape";
+import { collectNamedTypes, inferShapeFromJsonInput, type Shape } from "./json-shape";
 
 function yupExpr(shape: Shape, refMap: Map<string, string>): string {
   switch (shape.kind) {
@@ -16,11 +16,11 @@ function yupExpr(shape: Shape, refMap: Map<string, string>): string {
 }
 
 export const jsonToYup: ConvertFn = (input, opts): ConvertResult => {
-  const parsed = parseJsonSafe(input);
-  if (!parsed.ok) return { ok: false, code: "", error: `Invalid JSON: ${parsed.error}` };
-
   const rootName = opts?.rootName ?? "Root";
-  const root = inferShape(parsed.value, rootName);
+  const inferred = inferShapeFromJsonInput(input, rootName);
+  if (inferred.ok === false) return { ok: false, code: "", error: `Invalid JSON: ${inferred.error}` };
+
+  const root = inferred.shape;
 
   if (root.kind !== "object" && root.kind !== "array") {
     return { ok: true, code: `import * as yup from "yup";\n\nexport const ${rootName} = ${yupExpr(root, new Map())};` };

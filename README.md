@@ -11,6 +11,7 @@
 Schemato turns **10 input formats** into typed code for **15 target languages**. It is built for developers who need a quick type, validator, or DTO from a sample payload or schema without installing a CLI or uploading data to an API.
 
 - **149 live converter pages** generated from one format registry
+- **Multi-sample JSON inference**: paste NDJSON samples to capture optional fields
 - **100% client-side conversion**: pasted payloads stay in the browser
 - **No signup, no backend, no API cost**
 - **Open source** under the MIT license
@@ -35,7 +36,7 @@ Schemato turns **10 input formats** into typed code for **15 target languages**.
 
 | Input format | Status | Notes |
 |---|---:|---|
-| JSON | Live | Infers a shared `Shape` from sample payloads |
+| JSON | Live | Infers a shared `Shape` from one sample, arrays, or NDJSON samples |
 | JSON Schema | Live | Supports common object, array, enum, and primitive schema shapes |
 | OpenAPI 3.x | Live | Reads schema objects from JSON or YAML-like specs |
 | GraphQL SDL | Live | Parses object types into typed output models |
@@ -68,7 +69,7 @@ Schemato fills the gap. One page per conversion, 149 statically generated conver
 ## What makes it different?
 
 - **One converter matrix, not one-off tools**: the parser -> `Shape` -> renderer architecture keeps the project extensible.
-- **Practical defaults**: json tags for Go, serde derives for Rust, Codable for Swift, validation-first output for Zod and Pydantic.
+- **Practical defaults**: optional fields from multi-sample JSON, json tags for Go, serde derives for Rust, Codable for Swift, validation-first output for Zod and Pydantic.
 - **Static and cheap to host**: every converter page is generated at build time with `output: "export"`.
 - **Privacy-friendly by design**: conversion logic runs in the browser; there is no conversion API receiving pasted schemas.
 - **Easy to extend**: one new parser unlocks all output languages; one new renderer unlocks all input formats.
@@ -219,6 +220,7 @@ All input formats now produce the new output for free.
 ## Roadmap
 
 - [x] JSON input → 15 outputs
+- [x] NDJSON / multi-sample JSON inference for optional fields
 - [x] JSON Schema input → 15 outputs
 - [x] OpenAPI 3.x input → 15 outputs
 - [x] GraphQL SDL input → 15 outputs
