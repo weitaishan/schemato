@@ -23,6 +23,13 @@ interface Guide {
 
 const GUIDES: Guide[] = [
   {
+    href: "/guides/multiple-json-samples-to-typescript",
+    title: "Infer optional fields from multiple JSON samples",
+    blurb:
+      "Paste NDJSON API responses and generate safer TypeScript, Zod, Go, or Pydantic output.",
+    status: "published",
+  },
+  {
     href: "/guides/json-to-typescript",
     title: "How to convert JSON to TypeScript types",
     blurb:

@@ -262,6 +262,17 @@ export default function HomePage() {
         </p>
         <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3">
           <TrackedLink
+            href="/guides/multiple-json-samples-to-typescript"
+            event="click_guide_from_home"
+            params={{ slug: "multiple-json-samples-to-typescript" }}
+            className="card p-4 hover:border-accent transition block"
+          >
+            <div className="font-semibold">Infer optional fields from multiple JSON samples</div>
+            <p className="text-dim text-sm mt-1">
+              Paste NDJSON API responses and generate a safer shared type.
+            </p>
+          </TrackedLink>
+          <TrackedLink
             href="/guides/json-to-typescript"
             event="click_guide_from_home"
             params={{ slug: "json-to-typescript" }}

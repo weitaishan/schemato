@@ -20,6 +20,7 @@ export const ENTRIES: ChangelogEntry[] = [
     bullets: [
       "JSON converters now accept newline-delimited JSON samples and merge them into one shared shape.",
       "Fields missing from some samples are emitted as optional across TypeScript, Zod, Go, Pydantic, Rust, Swift, Kotlin, Java, C#, Dart, PHP, Ruby, Yup, Joi, and dataclass outputs.",
+      "Published `/guides/multiple-json-samples-to-typescript` to explain the API-response optional-field workflow.",
       "Single JSON values and normal formatted JSON still behave as before.",
     ],
   },

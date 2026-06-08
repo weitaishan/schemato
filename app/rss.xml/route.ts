@@ -24,6 +24,14 @@ function escape(s: string): string {
 
 const GUIDES_FEED: FeedItem[] = [
   {
+    title: "Infer optional fields from multiple JSON samples",
+    link: `${SITE.url}/guides/multiple-json-samples-to-typescript`,
+    pubDate: new Date("2026-06-08T11:00:00Z"),
+    description:
+      "Paste multiple API response samples as NDJSON and generate safer TypeScript, Zod, Go, and Pydantic outputs with optional fields inferred.",
+    guid: `${SITE.url}/guides/multiple-json-samples-to-typescript`,
+  },
+  {
     title: "How to convert JSON to TypeScript types",
     link: `${SITE.url}/guides/json-to-typescript`,
     pubDate: new Date("2026-05-26T09:00:00Z"),
