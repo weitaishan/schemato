@@ -1,0 +1,37 @@
+name: Converter request
+description: Request a new input parser, output renderer, or converter behavior.
+title: "[Converter]: "
+labels: ["enhancement", "converter"]
+body:
+  - type: dropdown
+    id: request_type
+    attributes:
+      label: Request type
+      options:
+        - New input format
+        - New output language
+        - Better output for an existing converter
+        - Other converter feature
+    validations:
+      required: true
+  - type: input
+    id: converter
+    attributes:
+      label: Converter or format
+      placeholder: "JSON Schema -> Zod, OpenAPI -> Rust, Elixir output, etc."
+    validations:
+      required: true
+  - type: textarea
+    id: use_case
+    attributes:
+      label: Use case
+      description: What workflow would this unlock?
+    validations:
+      required: true
+  - type: textarea
+    id: example
+    attributes:
+      label: Example input and desired output
+      render: text
+    validations:
+      required: false

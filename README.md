@@ -1,29 +1,54 @@
 # Schemato
 
-> Convert schemas and sample payloads into typed code. Free, browser-only, open source.
+> Browser-only schema converter for JSON, JSON Schema, OpenAPI, GraphQL, SQL DDL, Protobuf, Prisma, Mongoose, Avro, and TypeScript.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Made with Next.js](https://img.shields.io/badge/Made%20with-Next.js-000?logo=nextdotjs)](https://nextjs.org/)
+[![Static export](https://img.shields.io/badge/static%20export-zero%20backend-0f766e)](https://nextjs.org/docs/app/building-your-application/deploying/static-exports)
 
 **Live**: <https://www.schemato.top>
 
-Schemato turns **10 input formats** into typed code for **15 target languages**.
+Schemato turns **10 input formats** into typed code for **15 target languages**. It is built for developers who need a quick type, validator, or DTO from a sample payload or schema without installing a CLI or uploading data to an API.
 
-Inputs: JSON, JSON Schema, OpenAPI 3.x, GraphQL SDL, SQL DDL, Protobuf, Prisma, Mongoose, Avro, and TypeScript interfaces.
-
-Outputs: TypeScript, Zod, Pydantic, Go, Rust, Swift, Kotlin, Java, C#, Dart, PHP, Ruby, Yup, Joi, and Python dataclass.
-
-Conversion runs **100% in your browser**. No conversion payloads are uploaded. No signup. No API costs.
+- **149 live converter pages** generated from one format registry
+- **100% client-side conversion**: pasted payloads stay in the browser
+- **No signup, no backend, no API cost**
+- **Open source** under the MIT license
 
 ---
 
-## Try the main paths
+## Quick examples
 
-- [JSON -> Zod](https://www.schemato.top/json-to-zod) for TypeScript runtime validation
-- [JSON Schema -> Pydantic](https://www.schemato.top/json-schema-to-pydantic) for FastAPI models
-- [GraphQL -> TypeScript](https://www.schemato.top/graphql-to-typescript) for SDL-backed interfaces
-- [SQL DDL -> Go struct](https://www.schemato.top/sql-to-go-struct) for json-tagged DTOs
-- [Schemato vs quicktype](https://www.schemato.top/compare/quicktype) for a feature comparison
+| Need | Try |
+|---|---|
+| Runtime validation for a JSON API response | [JSON -> Zod](https://www.schemato.top/json-to-zod) |
+| FastAPI models from a JSON Schema | [JSON Schema -> Pydantic](https://www.schemato.top/json-schema-to-pydantic) |
+| TypeScript interfaces from GraphQL SDL | [GraphQL -> TypeScript](https://www.schemato.top/graphql-to-typescript) |
+| Go DTOs from SQL DDL | [SQL DDL -> Go struct](https://www.schemato.top/sql-to-go-struct) |
+| Compare with quicktype | [Schemato vs quicktype](https://www.schemato.top/compare/quicktype) |
+
+---
+
+## Supported formats
+
+### Inputs
+
+| Input format | Status | Notes |
+|---|---:|---|
+| JSON | Live | Infers a shared `Shape` from sample payloads |
+| JSON Schema | Live | Supports common object, array, enum, and primitive schema shapes |
+| OpenAPI 3.x | Live | Reads schema objects from JSON or YAML-like specs |
+| GraphQL SDL | Live | Parses object types into typed output models |
+| SQL DDL | Live | Covers a practical Postgres / MySQL / SQLite subset |
+| Protobuf | Live | Parses message fields |
+| Prisma schema | Live | Parses model blocks |
+| Mongoose schema | Live | Parses `new Schema({...})`-style definitions |
+| Avro | Live | Parses records, enums, arrays, maps, and unions |
+| TypeScript interfaces | Live | Converts TypeScript shapes into other targets |
+
+### Outputs
+
+TypeScript, Zod, Pydantic, Go struct, Rust struct, Swift, Kotlin, Java, C#, Dart, PHP, Ruby, Yup, Joi, and Python dataclass.
 
 ---
 
@@ -40,13 +65,13 @@ Schemato fills the gap. One page per conversion, 149 statically generated conver
 
 ---
 
-## Features
+## What makes it different?
 
-- **10 input formats** with full coverage (JSON, JSON Schema, OpenAPI, GraphQL SDL, SQL DDL, Protobuf, Prisma, Mongoose, Avro, TypeScript)
-- **15 output languages**, each with sensible defaults (json tags for Go, serde derives for Rust, Codable for Swift, etc.)
-- **149 live converters** today
-- Static export — every conversion has its own URL, indexed by Google
-- No signup, no server-side conversion, no uploaded payloads
+- **One converter matrix, not one-off tools**: the parser -> `Shape` -> renderer architecture keeps the project extensible.
+- **Practical defaults**: json tags for Go, serde derives for Rust, Codable for Swift, validation-first output for Zod and Pydantic.
+- **Static and cheap to host**: every converter page is generated at build time with `output: "export"`.
+- **Privacy-friendly by design**: conversion logic runs in the browser; there is no conversion API receiving pasted schemas.
+- **Easy to extend**: one new parser unlocks all output languages; one new renderer unlocks all input formats.
 
 ---
 
@@ -119,6 +144,32 @@ npm run build        # generates the static export in out/
 
 Conversions run in the browser. Schemato does not upload pasted schemas or payloads to a conversion API.
 
+The site uses aggregate analytics to understand product usage, but conversion input and generated output are not sent as analytics event data.
+
+---
+
+## For directory and awesome-list maintainers
+
+- Category: developer tool, schema converter, code generator, typed API tooling
+- License: MIT
+- Pricing: free
+- Source: open source on GitHub
+- Account required: no
+- Hosted demo: <https://www.schemato.top>
+- Primary use cases: JSON -> Zod, JSON Schema -> Pydantic, OpenAPI -> TypeScript, SQL DDL -> Go struct, multi-format schema conversion
+- Privacy posture: browser-only conversion; pasted schemas are not sent to a conversion API
+
+---
+
+## Useful links
+
+- Live site: <https://www.schemato.top>
+- Changelog: <https://www.schemato.top/changelog>
+- Guides: <https://www.schemato.top/guides>
+- Privacy: <https://www.schemato.top/privacy>
+- Security: <https://github.com/weitaishan/schemato/blob/main/SECURITY.md>
+- Issues: <https://github.com/weitaishan/schemato/issues>
+
 ---
 
 ## How to add a new input format
@@ -188,7 +239,9 @@ All input formats now produce the new output for free.
 PRs welcome. The project is small and the architecture rewards adding one renderer / parser at a time:
 
 - Want Elixir / Scala / Haskell as an output language? Add a renderer.
-- Want OpenAPI / Avro / Prisma as input? Add a parser.
+- Want another schema language as input? Add a parser.
+- Found an incorrect conversion? Open a bug report with a reduced input sample.
+- Want a new converter pair prioritized? Open a converter request.
 
 Each adapter is independent; nothing else needs to change.
 

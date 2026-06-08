@@ -1,0 +1,52 @@
+name: Bug report
+description: Report an incorrect conversion, parser failure, or UI issue.
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping improve Schemato. A small reproducible input is the fastest way to debug converter issues.
+  - type: input
+    id: path
+    attributes:
+      label: Converter path
+      description: Which converter page did you use?
+      placeholder: "https://www.schemato.top/json-to-zod"
+    validations:
+      required: true
+  - type: textarea
+    id: input
+    attributes:
+      label: Input sample
+      description: Paste the smallest schema or payload that reproduces the issue.
+      render: text
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual output or error
+      render: text
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected output
+      description: What should Schemato have generated instead?
+      render: text
+    validations:
+      required: false
+  - type: dropdown
+    id: browser
+    attributes:
+      label: Browser
+      options:
+        - Chrome
+        - Firefox
+        - Safari
+        - Edge
+        - Other
+    validations:
+      required: false
