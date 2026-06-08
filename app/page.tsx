@@ -299,6 +299,48 @@ export default function HomePage() {
           All guides →
         </a>
       </section>
+
+      <section className="mt-20 max-w-3xl">
+        <h2 className="text-2xl font-bold">Compare alternatives</h2>
+        <p className="text-dim mt-2 text-sm">
+          Practical comparisons for teams choosing a browser-based schema converter.
+        </p>
+        <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <TrackedLink
+            href="/compare/quicktype"
+            event="click_compare_from_home"
+            params={{ slug: "quicktype" }}
+            className="card p-4 hover:border-accent transition block"
+          >
+            <div className="font-semibold">Schemato vs quicktype</div>
+            <p className="text-dim text-sm mt-1">
+              Mature CLI and model generation vs browser-first validation output.
+            </p>
+          </TrackedLink>
+          <TrackedLink
+            href="/compare/json2ts"
+            event="click_compare_from_home"
+            params={{ slug: "json2ts" }}
+            className="card p-4 hover:border-accent transition block"
+          >
+            <div className="font-semibold">Schemato vs json2ts</div>
+            <p className="text-dim text-sm mt-1">
+              Focused JSON-to-TypeScript tools vs a multi-format converter matrix.
+            </p>
+          </TrackedLink>
+          <TrackedLink
+            href="/compare/transform-tools"
+            event="click_compare_from_home"
+            params={{ slug: "transform_tools" }}
+            className="card p-4 hover:border-accent transition block"
+          >
+            <div className="font-semibold">Schemato vs transform.tools</div>
+            <p className="text-dim text-sm mt-1">
+              Broad transform toolbox vs dedicated schema-to-code workflows.
+            </p>
+          </TrackedLink>
+        </div>
+      </section>
     </div>
   );
 }

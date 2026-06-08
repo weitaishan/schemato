@@ -14,6 +14,16 @@ export interface ChangelogEntry {
 
 export const ENTRIES: ChangelogEntry[] = [
   {
+    date: "2026-06-08",
+    title: "Comparison pages for developer-tool discovery",
+    tags: ["docs"],
+    bullets: [
+      "Published `/compare/transform-tools` to explain when Schemato is a better fit for schema-to-code workflows.",
+      "Updated the sitemap so the new comparison page can be discovered alongside quicktype and json2ts comparisons.",
+      "Continued GitHub credibility work for awesome-list submissions and open-source directory reviews.",
+    ],
+  },
+  {
     date: "2026-05-26",
     title: "Search-backed JSON guides",
     tags: ["docs", "ux"],
