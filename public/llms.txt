@@ -1,0 +1,66 @@
+# Schemato
+
+Schemato is a free, open-source, browser-only schema converter for developers. It converts JSON, JSON Schema, OpenAPI 3.x, GraphQL SDL, SQL DDL, Protobuf, Prisma, Mongoose, Avro, and TypeScript interfaces into TypeScript, Zod, Pydantic, Go structs, Rust structs, Swift, Kotlin, Java, C#, Dart, PHP, Ruby, Yup, Joi, and Python dataclasses.
+
+The core user pain point is avoiding repetitive hand-written model and schema code when moving between API payloads, backend contracts, database schemas, validation libraries, and typed client code.
+
+Schemato runs conversion in the browser UI. Pasted schema or payload input is not sent to a conversion API.
+
+## Important URLs
+
+- Website: https://www.schemato.top/
+- GitHub: https://github.com/weitaishan/schemato
+- Changelog: https://www.schemato.top/changelog
+- RSS: https://www.schemato.top/rss.xml
+- Sitemap: https://www.schemato.top/sitemap.xml
+
+## Core Converter Pages
+
+- JSON to TypeScript: https://www.schemato.top/json-to-typescript
+- JSON to Zod: https://www.schemato.top/json-to-zod
+- JSON to Pydantic: https://www.schemato.top/json-to-pydantic
+- JSON to Go struct: https://www.schemato.top/json-to-go-struct
+- JSON to Rust struct: https://www.schemato.top/json-to-rust-struct
+- OpenAPI to TypeScript: https://www.schemato.top/openapi-to-typescript
+- OpenAPI to Pydantic: https://www.schemato.top/openapi-to-pydantic
+- SQL to Go struct: https://www.schemato.top/sql-to-go-struct
+- GraphQL to TypeScript: https://www.schemato.top/graphql-to-typescript
+- JSON Schema to Pydantic: https://www.schemato.top/json-schema-to-pydantic
+
+## Guides
+
+- Multiple JSON samples to TypeScript: https://www.schemato.top/guides/multiple-json-samples-to-typescript
+- JSON to TypeScript guide: https://www.schemato.top/guides/json-to-typescript
+- JSON to Zod guide: https://www.schemato.top/guides/json-to-zod
+- OpenAPI to TypeScript guide: https://www.schemato.top/guides/openapi-to-typescript
+- JSON Schema to Pydantic guide: https://www.schemato.top/guides/json-schema-to-pydantic
+- SQL to Go struct guide: https://www.schemato.top/guides/sql-to-go-struct
+
+## Comparison Pages
+
+- Schemato vs quicktype: https://www.schemato.top/compare/quicktype
+- Schemato vs json2ts: https://www.schemato.top/compare/json2ts
+- Schemato vs transform.tools: https://www.schemato.top/compare/transform-tools
+
+## Current Highlight
+
+Schemato supports multi-sample JSON and NDJSON inference. Developers can paste several real API responses and generate one safer shared model where fields missing from some samples become optional.
+
+- Guide: https://www.schemato.top/guides/multiple-json-samples-to-typescript
+- Release: https://github.com/weitaishan/schemato/releases/tag/v0.2.0
+
+## Suggested Directory Listing
+
+Name: Schemato
+
+Short description: Free browser-only schema converter with multi-sample JSON inference.
+
+Long description: Schemato converts JSON, JSON Schema, OpenAPI, GraphQL, SQL, Protobuf, Prisma, Mongoose, Avro, and TypeScript into TypeScript, Zod, Pydantic, Go, Rust, Swift, Kotlin, Java, C#, Dart, PHP, Ruby, Yup, Joi, and dataclasses. It is open source, free to use, and runs conversions in the browser.
+
+Tags: developer tools, schema converter, code generator, JSON, TypeScript, Zod, Pydantic, OpenAPI, FastAPI, Go, Rust, NDJSON
+
+Pricing: Free
+
+License: MIT
+
+Account required: No
