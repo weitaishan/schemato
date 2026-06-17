@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import AdSlot from "@/components/AdSlot";
+import { AD_SLOTS } from "@/lib/ads";
 import { SITE } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -196,6 +198,32 @@ export default function GuideJsonToGoStruct() {
         </ul>
       </div>
 
+      <h2 className="text-2xl font-bold mt-12">When a lightweight converter is enough</h2>
+      <p className="text-dim mt-2 leading-relaxed">
+        Search results for <code className="text-accent2">json to go</code> are
+        full of single-purpose tools because the job is often small: paste one
+        API response, get one struct, keep moving. That is the sweet spot for a
+        browser converter.
+      </p>
+      <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div className="card p-4">
+          <div className="font-semibold">Use this page when</div>
+          <ul className="mt-2 space-y-2 text-dim text-sm">
+            <li>• You have a webhook or API sample and need DTOs now.</li>
+            <li>• You want clean json tags without installing a CLI.</li>
+            <li>• You are shaping a handler, test fixture, or integration model.</li>
+          </ul>
+        </div>
+        <div className="card p-4">
+          <div className="font-semibold">Use a project generator when</div>
+          <ul className="mt-2 space-y-2 text-dim text-sm">
+            <li>• Your source of truth is a full OpenAPI spec.</li>
+            <li>• You need client methods, auth, retries, and pagination helpers.</li>
+            <li>• Your team wants generated code checked in from CI.</li>
+          </ul>
+        </div>
+      </div>
+
       <h2 className="text-2xl font-bold mt-12">Common pitfalls</h2>
       <ul className="mt-4 space-y-3 text-dim">
         <li>
@@ -245,6 +273,8 @@ export default function GuideJsonToGoStruct() {
           </p>
         </div>
       </div>
+
+      <AdSlot slot={AD_SLOTS.guideBottomBeforeRelated} className="mt-12" />
 
       <section className="mt-12">
         <h2 className="text-2xl font-bold">Related</h2>

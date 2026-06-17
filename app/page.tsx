@@ -39,6 +39,13 @@ export default function HomePage() {
       event: "json_to_zod",
     },
     {
+      href: "/guides/zod-validation",
+      title: "Zod validation",
+      label: "Validation workflow",
+      detail: "A broader search intent than one converter: API responses, forms, env vars, and safeParse.",
+      event: "zod_validation",
+    },
+    {
       href: "/json-to-go-struct",
       title: "JSON -> Go struct",
       label: "Go API DTOs",
@@ -111,10 +118,10 @@ export default function HomePage() {
             <h2 className="text-2xl font-bold mt-1">Search-backed starting points</h2>
           </div>
           <p className="text-sm text-dim max-w-xl">
-            Google Trends points to these broader developer tasks before the narrower long-tail converters.
+            Picked from current GSC signals, public competitor positioning, and broader Google/Bing search intent.
           </p>
         </div>
-        <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+        <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
           {starterConverters.map((c) => (
             <TrackedLink
               key={c.href}
@@ -292,6 +299,17 @@ export default function HomePage() {
             <div className="font-semibold">How to convert JSON to a Zod schema</div>
             <p className="text-dim text-sm mt-1">
               From a raw JSON sample to a validated, typed schema you can reuse in fetch, forms, and tRPC.
+            </p>
+          </TrackedLink>
+          <TrackedLink
+            href="/guides/zod-validation"
+            event="click_guide_from_home"
+            params={{ slug: "zod-validation" }}
+            className="card p-4 hover:border-accent transition block"
+          >
+            <div className="font-semibold">Zod validation for runtime data</div>
+            <p className="text-dim text-sm mt-1">
+              Validate API responses, forms, env vars, and webhooks with parse and safeParse.
             </p>
           </TrackedLink>
           <TrackedLink

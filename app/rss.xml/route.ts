@@ -56,6 +56,14 @@ const GUIDES_FEED: FeedItem[] = [
     guid: `${SITE.url}/guides/json-to-zod`,
   },
   {
+    title: "Zod validation for API responses, forms, and env vars",
+    link: `${SITE.url}/guides/zod-validation`,
+    pubDate: new Date("2026-06-17T10:00:00Z"),
+    description:
+      "A practical Zod validation workflow for API responses, forms, env vars, generated schemas, parse, and safeParse.",
+    guid: `${SITE.url}/guides/zod-validation`,
+  },
+  {
     title: "How to turn JSON Schema into Pydantic v2 models",
     link: `${SITE.url}/guides/json-schema-to-pydantic`,
     pubDate: new Date("2026-05-16T11:00:00Z"),

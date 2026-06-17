@@ -19,10 +19,13 @@ export const metadata: Metadata = {
   keywords: [
     "json to typescript",
     "json to zod",
+    "zod validation",
+    "zod schema",
     "json to pydantic",
     "json to go struct",
     "json to rust struct",
     "json schema to typescript",
+    "openapi typescript",
     "graphql to typescript",
     "schema converter",
     "type generator",

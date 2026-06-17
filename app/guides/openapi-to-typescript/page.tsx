@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import AdSlot from "@/components/AdSlot";
+import { AD_SLOTS } from "@/lib/ads";
 import { SITE } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -196,6 +198,36 @@ export default function GuideOpenApiToTypeScript() {
         for that. Use whichever fits your trust model.
       </p>
 
+      <h2 className="text-2xl font-bold mt-12">When to use openapi-typescript, orval, or a lightweight converter</h2>
+      <p className="text-dim mt-2 leading-relaxed">
+        The broad <code className="text-accent2">openapi typescript</code> search
+        intent mixes two different jobs: generating a whole client, and grabbing
+        a few useful types. Schemato is built for the second job.
+      </p>
+      <div className="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <div className="card p-4">
+          <div className="font-semibold">Use Schemato for</div>
+          <p className="text-dim text-sm mt-2">
+            One-off schemas, docs examples, B2B integration spikes, and quick
+            front-end DTOs from <code className="text-accent2">components.schemas</code>.
+          </p>
+        </div>
+        <div className="card p-4">
+          <div className="font-semibold">Use openapi-typescript for</div>
+          <p className="text-dim text-sm mt-2">
+            A full type layer from a stable spec when you want repeatable codegen
+            in your project.
+          </p>
+        </div>
+        <div className="card p-4">
+          <div className="font-semibold">Use orval for</div>
+          <p className="text-dim text-sm mt-2">
+            Client generation, React Query hooks, mock generation, and a larger
+            OpenAPI-driven front-end workflow.
+          </p>
+        </div>
+      </div>
+
       <hr className="border-border my-12" />
 
       <h2 className="text-2xl font-bold">Common pitfalls</h2>
@@ -247,6 +279,8 @@ export default function GuideOpenApiToTypeScript() {
           <p className="text-dim mt-1">No — only types. Use <code className="text-accent2">openapi-fetch</code> if you need wrappers; often raw fetch is enough.</p>
         </div>
       </div>
+
+      <AdSlot slot={AD_SLOTS.guideBottomBeforeRelated} className="mt-12" />
 
       <section className="mt-12">
         <h2 className="text-2xl font-bold">Related</h2>

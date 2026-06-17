@@ -44,6 +44,13 @@ const GUIDES: Guide[] = [
     status: "published",
   },
   {
+    href: "/guides/zod-validation",
+    title: "Zod validation for API responses, forms, and env vars",
+    blurb:
+      "A broader validation workflow for parse, safeParse, generated schemas, and runtime boundaries.",
+    status: "published",
+  },
+  {
     href: "/guides/json-to-go-struct",
     title: "How to convert JSON to a Go struct",
     blurb:

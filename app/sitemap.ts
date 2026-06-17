@@ -23,6 +23,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE.url}/guides/multiple-json-samples-to-typescript`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
     { url: `${SITE.url}/guides/json-to-typescript`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
     { url: `${SITE.url}/guides/json-to-zod`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
+    { url: `${SITE.url}/guides/zod-validation`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
     { url: `${SITE.url}/guides/json-to-go-struct`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
     { url: `${SITE.url}/guides/json-schema-to-pydantic`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
     { url: `${SITE.url}/guides/openapi-to-typescript`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
