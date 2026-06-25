@@ -74,9 +74,10 @@ const ROWS: Row[] = [
   },
   {
     feature: "Multi-sample inference (union of N JSONs)",
-    schemato: "Not yet — single sample today",
+    schemato:
+      "Yes for JSON / NDJSON samples — Schemato can infer optional fields across multiple pasted payloads",
     quicktype: "Yes — the API accepts multiple JSON samples for a desired type",
-    highlight: "quicktype",
+    highlight: "tie",
   },
   {
     feature: "CLI",
@@ -255,8 +256,10 @@ export default function ComparePage() {
           <p>
             <strong className="text-text">You have N samples and want a unified
             type.</strong>{" "}
-            quicktype shines here. Schemato today is intentionally simple and
-            only converts one pasted sample at a time.
+            quicktype shines for mature project and client-generation workflows.
+            Schemato also supports browser-based JSON / NDJSON multi-sample
+            inference for optional fields, but keeps the flow focused on
+            paste-and-copy converter pages.
           </p>
           <p>
             <strong className="text-text">You live in your terminal.</strong>{" "}

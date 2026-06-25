@@ -60,6 +60,44 @@ export default function HomePage() {
       event: "openapi_to_typescript",
     },
   ];
+  const searchShortcuts = [
+    {
+      href: "/json-schema-to-zod",
+      title: "JSON Schema -> Zod",
+      detail: "For teams moving existing schemas into TypeScript runtime validation.",
+      event: "json_schema_to_zod",
+    },
+    {
+      href: "/json-schema-to-typescript",
+      title: "JSON Schema -> TypeScript",
+      detail: "Turn a schema contract into copyable TypeScript types.",
+      event: "json_schema_to_typescript",
+    },
+    {
+      href: "/typescript-to-zod",
+      title: "TypeScript -> Zod",
+      detail: "Draft validation schemas from existing interfaces and type aliases.",
+      event: "typescript_to_zod",
+    },
+    {
+      href: "/openapi-to-pydantic",
+      title: "OpenAPI -> Pydantic",
+      detail: "Extract Python models from API specs for FastAPI-style workflows.",
+      event: "openapi_to_pydantic",
+    },
+    {
+      href: "/graphql-to-typescript",
+      title: "GraphQL -> TypeScript",
+      detail: "Convert schema definitions into types you can use in client code.",
+      event: "graphql_to_typescript",
+    },
+    {
+      href: "/avro-to-zod",
+      title: "Avro -> Zod",
+      detail: "Bridge data platform schemas into browser-friendly validation code.",
+      event: "avro_to_zod",
+    },
+  ];
 
   return (
     <div className="container-x py-16">
@@ -132,6 +170,32 @@ export default function HomePage() {
             >
               <div className="text-sm text-accent font-medium">{c.label}</div>
               <div className="font-semibold mt-1">{c.title}</div>
+              <p className="text-dim text-sm mt-2 leading-relaxed">{c.detail}</p>
+            </TrackedLink>
+          ))}
+        </div>
+      </section>
+
+      <section className="mt-12">
+        <div className="flex items-baseline justify-between gap-4 flex-wrap">
+          <div>
+            <p className="text-dim text-sm uppercase tracking-widest">Shortcuts</p>
+            <h2 className="text-2xl font-bold mt-1">Validation and schema routes</h2>
+          </div>
+          <p className="text-sm text-dim max-w-xl">
+            Common paths people search for after landing on JSON, Zod, OpenAPI, and TypeScript converters.
+          </p>
+        </div>
+        <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          {searchShortcuts.map((c) => (
+            <TrackedLink
+              key={c.href}
+              href={c.href}
+              event="click_search_shortcut"
+              params={{ converter: c.event }}
+              className="card p-4 hover:border-accent transition block"
+            >
+              <div className="font-semibold">{c.title}</div>
               <p className="text-dim text-sm mt-2 leading-relaxed">{c.detail}</p>
             </TrackedLink>
           ))}

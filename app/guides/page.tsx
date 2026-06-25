@@ -77,6 +77,39 @@ const GUIDES: Guide[] = [
   },
 ];
 
+const SHORTCUTS = [
+  {
+    href: "/json-to-zod",
+    title: "JSON -> Zod",
+    blurb: "Generate a first validation schema from a real payload.",
+  },
+  {
+    href: "/json-schema-to-zod",
+    title: "JSON Schema -> Zod",
+    blurb: "Move an existing schema contract into Zod validation.",
+  },
+  {
+    href: "/json-schema-to-typescript",
+    title: "JSON Schema -> TypeScript",
+    blurb: "Turn a schema into TypeScript types for app code.",
+  },
+  {
+    href: "/typescript-to-zod",
+    title: "TypeScript -> Zod",
+    blurb: "Start from interfaces when your app already has types.",
+  },
+  {
+    href: "/openapi-to-pydantic",
+    title: "OpenAPI -> Pydantic",
+    blurb: "Extract Python models from API specs for FastAPI workflows.",
+  },
+  {
+    href: "/openapi-to-typescript",
+    title: "OpenAPI -> TypeScript",
+    blurb: "Get types from a spec without setting up a full client generator.",
+  },
+];
+
 export default function GuidesIndex() {
   return (
     <div className="container-x py-16 max-w-3xl">
@@ -86,6 +119,23 @@ export default function GuidesIndex() {
         Long-form, copy-paste-friendly guides on converting between schemas. Each
         guide pairs a real-world workflow with the matching tool on this site.
       </p>
+
+      <section className="mt-10">
+        <div className="flex items-baseline justify-between gap-4 flex-wrap">
+          <div>
+            <p className="text-dim text-sm uppercase tracking-widest">Popular paths</p>
+            <h2 className="text-2xl font-bold mt-1">Jump straight to a converter</h2>
+          </div>
+        </div>
+        <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-3">
+          {SHORTCUTS.map((s) => (
+            <a key={s.href} href={s.href} className="card p-4 block hover:border-accent transition">
+              <div className="font-semibold">{s.title}</div>
+              <p className="text-dim text-sm mt-1 leading-relaxed">{s.blurb}</p>
+            </a>
+          ))}
+        </div>
+      </section>
 
       <div className="mt-10 space-y-4">
         {GUIDES.map((g, i) => {
